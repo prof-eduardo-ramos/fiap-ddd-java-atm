@@ -1,7 +1,10 @@
 package br.fiap.bank.atm.model;
 
+// Essa classe cuida da parte de segurança da conta: senha e bloqueio.
+// Separei do modelo de Conta para não misturar regra financeira com autenticação.
 public class ContaAcesso {
 
+    // Deixei como constante para ficar fácil de mudar no futuro se precisar.
     public static final Integer MAXIMO_TENTATIVAS = 3;
 
     private String senha;
@@ -14,11 +17,15 @@ public class ContaAcesso {
         this.bloqueado = Boolean.FALSE;
     }
 
+    // Esse método valida a senha e já controla as tentativas automaticamente.
+    // Se errar 3 vezes, bloqueia — parecido com o que acontece no banco real.
     public Boolean validarSenha(String senhaInformada) {
+        // Se já está bloqueado, nem deixa tentar de novo.
         if (bloqueado) {
             return Boolean.FALSE;
         }
         if (this.senha.equals(senhaInformada)) {
+            // Acertou a senha, reseta o contador de tentativas.
             resetarTentativas();
             return Boolean.TRUE;
         }
@@ -33,6 +40,7 @@ public class ContaAcesso {
         return bloqueado;
     }
 
+    // Esse método pode ser usado por um administrador para desbloquear a conta.
     public void resetarTentativas() {
         this.tentativas = 0;
         this.bloqueado = Boolean.FALSE;

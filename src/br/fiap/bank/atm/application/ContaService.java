@@ -6,6 +6,9 @@ import br.fiap.bank.atm.model.Movimentacao;
 
 import java.util.List;
 
+// Camada de serviço que fica entre o terminal e o modelo.
+// O terminal não chama a Conta diretamente — passa pelo service.
+// Isso evita que a tela saiba demais sobre como a conta funciona por dentro.
 public class ContaService {
 
     private Conta conta;
@@ -30,6 +33,7 @@ public class ContaService {
         return conta.getMovimentacoes();
     }
 
+    // Busco só o primeiro nome para cumprimentar o usuário de forma mais amigável no terminal.
     public String obterNomeCliente() {
         return conta.getCliente().obterPrimeiroNome();
     }
