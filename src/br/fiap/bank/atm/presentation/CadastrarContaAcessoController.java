@@ -46,7 +46,6 @@ public class CadastrarContaAcessoController {
 
         // Valida se a senha tem 4 dígitos, se é composta apenas por números, se não é
         // 0000 e nem 1234 através de Regular Expression
-
         int quantidadeDeTentativas = 3;
 
         while (senha.length() != 4 || !senha.matches("\\d{4}") || senha.equals("0000") || senha.equals("1234")) {
