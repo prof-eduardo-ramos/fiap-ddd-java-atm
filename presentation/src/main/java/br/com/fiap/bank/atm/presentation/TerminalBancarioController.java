@@ -1,7 +1,6 @@
 package br.com.fiap.bank.atm.presentation;
 
-import br.com.fiap.bank.atm.application.AutorizacaoService;
-import br.com.fiap.bank.atm.application.ContaService;
+import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.Dinheiro;
 import br.com.fiap.bank.atm.domain.Movimentacao;
 
@@ -15,18 +14,15 @@ import java.util.Scanner;
 // Não coloquei lógica de negócio aqui, só leitura de entrada e exibição de resultado.
 public class TerminalBancarioController {
 
-    private ContaService contaService;
-    private AutorizacaoService autorizacaoService;
+    private Conta conta;
     private Scanner scanner;
 
     // Constante para o separador visual do terminal, evita repetir a string em
     // vários lugares.
     private static final String SEPARADOR = "============================================";
 
-    public TerminalBancarioController(ContaService contaService, AutorizacaoService autorizacaoService) {
-        this.contaService = contaService;
-        this.autorizacaoService = autorizacaoService;
-        // Scanner lê o que o usuário digita no terminal.
+    public TerminalBancarioController(Conta conta) {
+        this.conta = conta;
         this.scanner = new Scanner(System.in);
     }
 
@@ -54,8 +50,8 @@ public class TerminalBancarioController {
             System.out.print("\nDigite sua senha: ");
             String senha = scanner.nextLine().trim();
 
-            if (autorizacaoService.autorizar(senha)) {
-                System.out.println("Acesso autorizado! Bem-vindo, " + contaService.obterNomeCliente() + "!");
+            if (conta.getContaAcesso().validarSenha(senha)) {
+                System.out.println("Acesso autorizado! Bem-vindo, " + conta.getCliente().obterPrimeiroNome() + "!");
                 return Boolean.TRUE;
             }
 
@@ -115,7 +111,7 @@ public class TerminalBancarioController {
 
     public void exibirSaldo() {
         System.out.println("\n--- Consulta de Saldo ---");
-        System.out.println("Saldo disponível: " + contaService.obterSaldo());
+        System.out.println("Saldo disponível: " + conta.getSaldo());
     }
 
     public void realizarDeposito() {
@@ -127,9 +123,9 @@ public class TerminalBancarioController {
 
         try {
             BigDecimal valor = new BigDecimal(entrada);
-            contaService.realizarDeposito(new Dinheiro(valor));
+            conta.realizarDeposito(new Dinheiro(valor));
             System.out.println("Depósito realizado com sucesso!");
-            System.out.println("Novo saldo: " + contaService.obterSaldo());
+            System.out.println("Novo saldo: " + conta.getSaldo());
         } catch (NumberFormatException e) {
             // Captura quando o usuário digita algo que não é número.
             System.out.println("Valor inválido. Digite um número válido.");
@@ -146,9 +142,9 @@ public class TerminalBancarioController {
 
         try {
             BigDecimal valor = new BigDecimal(entrada);
-            contaService.realizarSaque(new Dinheiro(valor));
+            conta.realizarSaque(new Dinheiro(valor));
             System.out.println("Saque realizado com sucesso!");
-            System.out.println("Novo saldo: " + contaService.obterSaldo());
+            System.out.println("Novo saldo: " + conta.getSaldo());
         } catch (NumberFormatException e) {
             System.out.println("Valor inválido. Digite um número válido.");
         } catch (IllegalArgumentException e) {
@@ -158,8 +154,7 @@ public class TerminalBancarioController {
 
     public void exibirMovimentacoes() {
         System.out.println("\n--- Histórico de Movimentações ---");
-
-        List<Movimentacao> movimentacoes = contaService.obterMovimentacoes();
+        List<Movimentacao> movimentacoes = conta.getMovimentacoes();
 
         if (movimentacoes.isEmpty()) {
             System.out.println("Nenhuma movimentação encontrada.");

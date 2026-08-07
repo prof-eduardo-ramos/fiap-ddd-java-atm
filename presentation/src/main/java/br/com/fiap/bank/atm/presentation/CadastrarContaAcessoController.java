@@ -2,10 +2,7 @@ package br.com.fiap.bank.atm.presentation;
 
 import java.util.Scanner;
 
-import br.com.fiap.bank.atm.application.ContaFactory;
-import br.com.fiap.bank.atm.infrastructure.ContaRepository;
 import br.com.fiap.bank.atm.domain.Cliente;
-import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.ContaAcesso;
 import br.com.fiap.bank.atm.domain.Dinheiro;
 
@@ -14,7 +11,6 @@ public class CadastrarContaAcessoController {
     private static final String SEPARADOR = "============================================";
 
     private Scanner scanner;
-    private Conta conta;
 
     public CadastrarContaAcessoController() {
         this.scanner = new Scanner(System.in);
@@ -24,22 +20,15 @@ public class CadastrarContaAcessoController {
         System.out.println(SEPARADOR);
         System.out.println("     CADASTRO DE CONTA DE ACESSO     ");
         System.out.println(SEPARADOR);
-
-        this.salvarConta(ContaFactory.getInstance().criarContaCorrente(cadastrarCliente(), cadastrarContaAcesso(),
-                cadastrarSaldoInicial()));
     }
 
-    public Conta getConta() {
-        return conta;
-    }
-
-    private Cliente cadastrarCliente() {
+    public Cliente cadastrarCliente() {
         System.out.print("Digite o nome do cliente: ");
         String nome = scanner.nextLine();
         return new Cliente(nome);
     }
 
-    private ContaAcesso cadastrarContaAcesso() {
+    public ContaAcesso cadastrarContaAcesso() {
 
         System.out.print("Digite a senha de 4 dígitos: ");
         String senha = scanner.nextLine();
@@ -58,20 +47,13 @@ public class CadastrarContaAcessoController {
                 break;
             }
         }
-
         return new ContaAcesso(senha);
     }
 
-    private Dinheiro cadastrarSaldoInicial() {
+    public Dinheiro cadastrarSaldoInicial() {
         System.out.print("Digite o saldo inicial: ");
         Dinheiro saldoInicial = new Dinheiro(scanner.nextLine());
         return saldoInicial;
-    }
-
-    private void salvarConta(Conta conta) {
-        ContaRepository repository = new ContaRepository();
-        this.conta = conta;
-        repository.salvar(this.conta);
     }
 
 }

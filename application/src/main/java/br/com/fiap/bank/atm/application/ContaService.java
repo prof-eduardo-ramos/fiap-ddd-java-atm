@@ -3,6 +3,7 @@ package br.com.fiap.bank.atm.application;
 import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.Dinheiro;
 import br.com.fiap.bank.atm.domain.Movimentacao;
+import br.com.fiap.bank.atm.infrastructure.ContaRepository;
 
 import java.util.List;
 
@@ -12,6 +13,7 @@ import java.util.List;
 public class ContaService {
 
     private Conta conta;
+    private ContaRepository contaRepository;
 
     public ContaService(Conta conta) {
         this.conta = conta;
@@ -38,4 +40,9 @@ public class ContaService {
     public String obterNomeCliente() {
         return conta.getCliente().obterPrimeiroNome();
     }
+
+    public void salvarConta() {
+        contaRepository.salvar(conta);
+    }
+
 }
