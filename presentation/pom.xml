@@ -23,6 +23,12 @@
             <artifactId>application</artifactId>
             <version>1.0.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>br.com.fiap.bank</groupId>
+            <artifactId>infrastructure</artifactId>
+            <version>1.0.0</version>
+        </dependency>
     </dependencies>
 
 </project>
