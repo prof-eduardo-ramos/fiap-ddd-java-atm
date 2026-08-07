@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import br.com.fiap.bank.atm.application.AutorizacaoService;
 import br.com.fiap.bank.atm.application.ContaService;
-import br.com.fiap.bank.atm.model.Conta;
+import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.presentation.CadastrarContaAcessoController;
 import br.com.fiap.bank.atm.presentation.TerminalBancarioController;
 
