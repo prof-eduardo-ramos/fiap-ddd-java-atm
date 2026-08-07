@@ -18,6 +18,15 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <dependencies>
+        <!-- Dependência do banco de dados SQLite -->
+        <dependency>
+            <groupId>org.xerial</groupId>
+            <artifactId>sqlite-jdbc</artifactId>
+            <version>3.45.1.0</version>
+        </dependency>
+    </dependencies>
+
     <!-- Configurações de Build para Execução via Linha de Comando (Fat JAR) -->
     <build>
         <plugins>

@@ -1,6 +1,8 @@
 # Compiled output
 out/
 *.class
+target/
+*.jar
 
 # IDE - IntelliJ IDEA
 .idea/
