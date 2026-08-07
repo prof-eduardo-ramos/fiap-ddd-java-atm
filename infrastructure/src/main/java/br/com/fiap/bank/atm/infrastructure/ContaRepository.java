@@ -1,6 +1,6 @@
 package br.com.fiap.bank.atm.infrastructure;
 
-import br.com.fiap.bank.atm.model.Conta;
+import br.com.fiap.bank.atm.domain.Conta;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +18,8 @@ public class ContaRepository {
         this.contas = new HashMap<>();
     }
 
-    // Se já existir uma conta com o mesmo id, sobrescreve — funciona como update também.
+    // Se já existir uma conta com o mesmo id, sobrescreve — funciona como update
+    // também.
     public void salvar(Conta conta) {
         contas.put(conta.getId(), conta);
     }

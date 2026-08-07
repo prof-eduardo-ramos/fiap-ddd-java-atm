@@ -1,8 +1,8 @@
 package br.com.fiap.bank.atm.application;
 
-import br.com.fiap.bank.atm.model.Conta;
-import br.com.fiap.bank.atm.model.Dinheiro;
-import br.com.fiap.bank.atm.model.Movimentacao;
+import br.com.fiap.bank.atm.domain.Conta;
+import br.com.fiap.bank.atm.domain.Dinheiro;
+import br.com.fiap.bank.atm.domain.Movimentacao;
 
 import java.util.List;
 
@@ -33,7 +33,8 @@ public class ContaService {
         return conta.getMovimentacoes();
     }
 
-    // Busco só o primeiro nome para cumprimentar o usuário de forma mais amigável no terminal.
+    // Busco só o primeiro nome para cumprimentar o usuário de forma mais amigável
+    // no terminal.
     public String obterNomeCliente() {
         return conta.getCliente().obterPrimeiroNome();
     }

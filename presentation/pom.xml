@@ -15,4 +15,14 @@
 
     <!-- Configura o empacotamento para este módulo -->
     <packaging>jar</packaging>
+
+    <dependencies>
+        <!-- Dependência do módulo 'application' (apenas o código) -->
+        <dependency>
+            <groupId>br.com.fiap.bank</groupId>
+            <artifactId>application</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
+
 </project>

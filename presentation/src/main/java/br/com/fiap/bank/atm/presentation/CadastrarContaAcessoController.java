@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 import br.com.fiap.bank.atm.application.ContaFactory;
 import br.com.fiap.bank.atm.infrastructure.ContaRepository;
-import br.com.fiap.bank.atm.model.Cliente;
-import br.com.fiap.bank.atm.model.Conta;
-import br.com.fiap.bank.atm.model.ContaAcesso;
-import br.com.fiap.bank.atm.model.Dinheiro;
+import br.com.fiap.bank.atm.domain.Cliente;
+import br.com.fiap.bank.atm.domain.Conta;
+import br.com.fiap.bank.atm.domain.ContaAcesso;
+import br.com.fiap.bank.atm.domain.Dinheiro;
 
 public class CadastrarContaAcessoController {
 

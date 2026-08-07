@@ -1,6 +1,6 @@
 package br.com.fiap.bank.atm.application;
 
-import br.com.fiap.bank.atm.model.Conta;
+import br.com.fiap.bank.atm.domain.Conta;
 
 // Serviço responsável apenas pela autenticação.
 // Separei de ContaService para deixar claro que autenticação e operações financeiras
@@ -13,7 +13,8 @@ public class AutorizacaoService {
         this.conta = conta;
     }
 
-    // Delega a validação para ContaAcesso, que é quem conhece a senha e controla as tentativas.
+    // Delega a validação para ContaAcesso, que é quem conhece a senha e controla as
+    // tentativas.
     public Boolean autorizar(String senha) {
         return conta.getContaAcesso().validarSenha(senha);
     }

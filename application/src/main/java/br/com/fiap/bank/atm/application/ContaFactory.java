@@ -1,11 +1,11 @@
 package br.com.fiap.bank.atm.application;
 
-import br.com.fiap.bank.atm.model.Cliente;
-import br.com.fiap.bank.atm.model.Conta;
-import br.com.fiap.bank.atm.model.ContaAcesso;
-import br.com.fiap.bank.atm.model.ContaCorrente;
-import br.com.fiap.bank.atm.model.ContaPoupanca;
-import br.com.fiap.bank.atm.model.Dinheiro;
+import br.com.fiap.bank.atm.domain.Cliente;
+import br.com.fiap.bank.atm.domain.Conta;
+import br.com.fiap.bank.atm.domain.ContaAcesso;
+import br.com.fiap.bank.atm.domain.ContaCorrente;
+import br.com.fiap.bank.atm.domain.ContaPoupanca;
+import br.com.fiap.bank.atm.domain.Dinheiro;
 
 // Factory responsável por criar os diferentes tipos de conta.
 // Usei o padrão Factory para que o resto do sistema não precise saber qual classe concreta
@@ -16,7 +16,8 @@ public class ContaFactory {
     // O construtor privado impede que alguém crie outra instância por fora.
     private static ContaFactory instance;
 
-    private ContaFactory() {}
+    private ContaFactory() {
+    }
 
     public static ContaFactory getInstance() {
         if (instance == null) {

@@ -2,8 +2,8 @@ package br.com.fiap.bank.atm.presentation;
 
 import br.com.fiap.bank.atm.application.AutorizacaoService;
 import br.com.fiap.bank.atm.application.ContaService;
-import br.com.fiap.bank.atm.model.Dinheiro;
-import br.com.fiap.bank.atm.model.Movimentacao;
+import br.com.fiap.bank.atm.domain.Dinheiro;
+import br.com.fiap.bank.atm.domain.Movimentacao;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
@@ -19,7 +19,8 @@ public class TerminalBancarioController {
     private AutorizacaoService autorizacaoService;
     private Scanner scanner;
 
-    // Constante para o separador visual do terminal, evita repetir a string em vários lugares.
+    // Constante para o separador visual do terminal, evita repetir a string em
+    // vários lugares.
     private static final String SEPARADOR = "============================================";
 
     public TerminalBancarioController(ContaService contaService, AutorizacaoService autorizacaoService) {
@@ -120,7 +121,8 @@ public class TerminalBancarioController {
     public void realizarDeposito() {
         System.out.println("\n--- Fazer Depósito ---");
         System.out.print("Informe o valor do depósito: R$ ");
-        // replace(",", ".") para aceitar tanto vírgula quanto ponto como separador decimal.
+        // replace(",", ".") para aceitar tanto vírgula quanto ponto como separador
+        // decimal.
         String entrada = scanner.nextLine().trim().replace(",", ".");
 
         try {
@@ -167,7 +169,8 @@ public class TerminalBancarioController {
         // Formatei a data no padrão brasileiro para ficar mais fácil de ler.
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 
-        // printf com %-22s alinha o texto à esquerda e preenche com espaços para a tabela ficar organizada.
+        // printf com %-22s alinha o texto à esquerda e preenche com espaços para a
+        // tabela ficar organizada.
         System.out.printf("%-22s | %-12s | %s%n", "Data/Hora", "Tipo", "Valor");
         System.out.println("-------------------------------------------------------");
 
