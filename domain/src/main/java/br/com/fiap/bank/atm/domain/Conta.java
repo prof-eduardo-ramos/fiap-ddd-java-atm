@@ -13,6 +13,8 @@ public abstract class Conta extends BaseEntity {
 
     // Protected para que as subclasses consigam acessar diretamente,
     // por exemplo ContaPoupanca precisa mexer no saldo para aplicar o rendimento.
+    protected String numero;
+    protected String agencia;
     protected Cliente cliente;
     protected Dinheiro saldo;
     protected Double taxa;
@@ -135,6 +137,14 @@ public abstract class Conta extends BaseEntity {
     // adicionar ou remover movimentações por fora da classe.
     public List<Movimentacao> getMovimentacoes() {
         return Collections.unmodifiableList(movimentacoes);
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public String getAgencia() {
+        return agencia;
     }
 
     @Override
