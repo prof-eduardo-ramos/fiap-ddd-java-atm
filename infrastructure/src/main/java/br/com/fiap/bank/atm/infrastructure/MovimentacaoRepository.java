@@ -27,10 +27,7 @@ public class MovimentacaoRepository implements ATMRepository<Movimentacao> {
     }
 
     public void remover(UUID id) {
-        Movimentacao m = buscarPorId(id);
-        if (m != null) {
-            movimentacoes.remove(m);
-        }
+        movimentacoes.removeIf(movimentacao -> movimentacao.getId().equals(id));
     }
 
     public List<Movimentacao> buscarTodas() {
