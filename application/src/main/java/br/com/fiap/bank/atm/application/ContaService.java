@@ -17,6 +17,7 @@ public class ContaService {
 
     public ContaService(Conta conta) {
         this.conta = conta;
+        this.contaRepository = new ContaRepository();
     }
 
     public void realizarDeposito(Dinheiro valor) {
