@@ -3,7 +3,7 @@ package br.com.fiap.bank.atm.application;
 import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.Dinheiro;
 import br.com.fiap.bank.atm.domain.Movimentacao;
-import br.com.fiap.bank.atm.infrastructure.ContaRepository;
+import br.com.fiap.bank.atm.infrastructure.repository.ContaRepository;
 
 import java.util.List;
 
