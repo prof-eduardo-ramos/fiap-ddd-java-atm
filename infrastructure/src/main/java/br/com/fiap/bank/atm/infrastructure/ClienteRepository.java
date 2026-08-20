@@ -1,6 +1,7 @@
 package br.com.fiap.bank.atm.infrastructure;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import br.com.fiap.bank.atm.domain.Cliente;
@@ -15,7 +16,7 @@ public class ClienteRepository implements ATMRepository<Cliente> {
     }
 
     @Override
-    public Cliente buscarPorId(UUID id) {
+    public Optional<Cliente> buscarPorId(UUID id) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'buscarPorId'");
     }
@@ -31,6 +32,5 @@ public class ClienteRepository implements ATMRepository<Cliente> {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'buscarTodas'");
     }
-
 
 }

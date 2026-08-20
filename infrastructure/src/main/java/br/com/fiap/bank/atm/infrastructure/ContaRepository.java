@@ -6,6 +6,7 @@ import br.com.fiap.bank.atm.domain.interfaces.ATMRepository;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 public class ContaRepository implements ATMRepository<Conta> {
@@ -21,8 +22,8 @@ public class ContaRepository implements ATMRepository<Conta> {
         contas.put(entidade.getId(), entidade);
     }
 
-    public Conta buscarPorId(UUID id) {
-        return contas.get(id);
+    public Optional<Conta> buscarPorId(UUID id) {
+        return Optional.ofNullable(contas.get(id));
     }
 
     public Boolean existe(UUID id) {
