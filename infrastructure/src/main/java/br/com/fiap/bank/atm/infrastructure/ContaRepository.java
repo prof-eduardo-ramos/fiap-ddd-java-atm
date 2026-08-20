@@ -8,19 +8,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-
 public class ContaRepository implements ATMRepository<Conta> {
 
-    private Map<String, Conta> contas = new HashMap<>();
+    private Map<UUID, Conta> contas = new HashMap<>();
 
     @Deprecated
     public void salvar(Conta conta) {
-        contas.put(conta.getId().toString(), conta);
+        contas.put(conta.getId(), conta);
     }
 
     public void adicionar(Conta entidade) {
-        String chave = gerarChave(entidade.getAgencia(), entidade.getNumero());
-        contas.put(chave, entidade);
+        contas.put(entidade.getId(), entidade);
     }
 
     public Conta buscarPorId(UUID id) {
@@ -31,25 +29,13 @@ public class ContaRepository implements ATMRepository<Conta> {
         return contas.containsKey(id);
     }
 
-    // Busca O(1) de altíssima performance (mas ainda retornando null se não achar)
-    public Conta validarContaNoAtm(String agencia, String numero) {
-        return contas.get(gerarChave(agencia, numero));
-    }
-
-    // Helper para padronizar a chave composta
-    private String gerarChave(String agencia, String numero) {
-        return agencia + "-" + numero;
-    }
-
     @Override
     public void remover(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remover'");
+        contas.remove(id);
     }
 
     @Override
     public List<Conta> buscarTodas() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarTodas'");
+        return List.copyOf(contas.values());
     }
 }
