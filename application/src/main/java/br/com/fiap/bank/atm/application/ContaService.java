@@ -4,6 +4,7 @@ import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.Dinheiro;
 import br.com.fiap.bank.atm.domain.Movimentacao;
 import br.com.fiap.bank.atm.infrastructure.ContaRepository;
+import br.com.fiap.bank.atm.infrastructure.MovimentacaoRepository;
 
 import java.util.List;
 
@@ -14,10 +15,12 @@ public class ContaService {
 
     private Conta conta;
     private ContaRepository contaRepository;
+    private MovimentacaoRepository movimentacaoRepository;
 
     public ContaService(Conta conta) {
         this.conta = conta;
         this.contaRepository = new ContaRepository();
+        this.movimentacaoRepository = new MovimentacaoRepository();
     }
 
     public void realizarDeposito(Dinheiro valor) {
@@ -43,7 +46,12 @@ public class ContaService {
     }
 
     public void salvarConta() {
-        contaRepository.salvar(conta);
+        contaRepository.adicionar(conta);
+        conta.getMovimentacoes().stream().forEach(movimentacaoRepository::adicionar);
+    }
+
+    public List<String> gerarRecibos() {
+        return movimentacaoRepository.gerarRecibosSimples();
     }
 
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 import br.com.fiap.bank.atm.domain.interfaces.ATMRepository;
 import br.com.fiap.bank.atm.domain.Movimentacao;
 
@@ -31,5 +33,11 @@ public class MovimentacaoRepository implements ATMRepository<Movimentacao> {
     public List<Movimentacao> buscarTodas() {
         // Convertendo o Set de volta para List para visualização
         return new ArrayList<>(movimentacoes);
+    }
+
+    public List<String> gerarRecibosSimples() {
+        return movimentacoes.stream()
+                .map(m -> "RECIBO | " + m.getTipo() + " - Valor: R$ " + m.getValor().getValor())
+                .collect(Collectors.toList());
     }
 }
