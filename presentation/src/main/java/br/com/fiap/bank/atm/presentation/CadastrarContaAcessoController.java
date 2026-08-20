@@ -1,9 +1,10 @@
 package br.com.fiap.bank.atm.presentation;
 
 import java.util.Scanner;
-
+import br.com.fiap.bank.atm.application.ContaFactory;
 import br.com.fiap.bank.atm.application.ContaService;
 import br.com.fiap.bank.atm.domain.Cliente;
+import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.ContaAcesso;
 import br.com.fiap.bank.atm.domain.Dinheiro;
 
@@ -13,25 +14,35 @@ public class CadastrarContaAcessoController {
 
     private final ContaService contaService;
     private Scanner scanner;
+    private ContaService contaService;
+    private Conta conta;
 
     public CadastrarContaAcessoController(ContaService contaService) {
         this.contaService = contaService;
         this.scanner = new Scanner(System.in);
     }
 
-    public void iniciar() {
+    public Conta getConta() {
+        return this.conta;
+    }
+
+    private Conta criarContaCorrente() {
         System.out.println(SEPARADOR);
         System.out.println("     CADASTRO DE CONTA DE ACESSO     ");
         System.out.println(SEPARADOR);
+
+        this.conta = ContaFactory.getInstance().criarContaCorrente(cadastrarCliente(),
+                cadastrarContaAcesso(), cadastrarSaldoInicial());
+        return this.conta;
     }
 
-    public Cliente cadastrarCliente() {
+    private Cliente cadastrarCliente() {
         System.out.print("Digite o nome do cliente: ");
         String nome = scanner.nextLine();
         return new Cliente(nome);
     }
 
-    public ContaAcesso cadastrarContaAcesso() {
+    private ContaAcesso cadastrarContaAcesso() {
 
         System.out.print("Digite a senha de 4 dígitos: ");
         String senha = scanner.nextLine();
@@ -53,7 +64,7 @@ public class CadastrarContaAcessoController {
         return new ContaAcesso(senha);
     }
 
-    public Dinheiro cadastrarSaldoInicial() {
+    private Dinheiro cadastrarSaldoInicial() {
         System.out.print("Digite o saldo inicial: ");
         Dinheiro saldoInicial = new Dinheiro(scanner.nextLine());
         return saldoInicial;

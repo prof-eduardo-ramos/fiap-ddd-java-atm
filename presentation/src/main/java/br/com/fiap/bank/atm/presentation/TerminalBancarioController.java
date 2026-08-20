@@ -23,7 +23,7 @@ public class TerminalBancarioController {
     }
 
     // Ponto de entrada do terminal. Primeiro autentica, só depois mostra o menu.
-    public void iniciar() {
+    private void iniciar() {
         System.out.println(SEPARADOR);
         System.out.println("      FIAP BANK - TERMINAL ATM (BETA)      ");
         System.out.println(SEPARADOR);
@@ -76,7 +76,8 @@ public class TerminalBancarioController {
             System.out.println("[2] Fazer Depósito");
             System.out.println("[3] Fazer Saque");
             System.out.println("[4] Histórico de Movimentações");
-            System.out.println("[5] Sair");
+            System.out.println("[5] Recibos");
+            System.out.println("[6] Sair");
             System.out.println(SEPARADOR);
             System.out.print("Escolha uma opção: ");
 
@@ -96,6 +97,9 @@ public class TerminalBancarioController {
                     exibirMovimentacoes();
                     break;
                 case "5":
+                    exibirRecibos();
+                    break;
+                case "6":
                     System.out.println("\nObrigado por utilizar o FIAP Bank ATM. Até logo!");
                     continuar = Boolean.FALSE;
                     break;
@@ -105,12 +109,17 @@ public class TerminalBancarioController {
         }
     }
 
-    public void exibirSaldo() {
+    private void exibirRecibos() {
+        System.out.println("\n--- Exibir Recibos ---");
+        contaService.gerarRecibos().stream().forEach(System.out::println);
+    }
+
+    private void exibirSaldo() {
         System.out.println("\n--- Consulta de Saldo ---");
         System.out.println("Saldo disponível: " + conta.getSaldo());
     }
 
-    public void realizarDeposito() {
+    private void realizarDeposito() {
         System.out.println("\n--- Fazer Depósito ---");
         System.out.print("Informe o valor do depósito: R$ ");
         // replace(",", ".") para aceitar tanto vírgula quanto ponto como separador
@@ -131,7 +140,7 @@ public class TerminalBancarioController {
         }
     }
 
-    public void realizarSaque() {
+    private void realizarSaque() {
         System.out.println("\n--- Fazer Saque ---");
         System.out.print("Informe o valor do saque: R$ ");
         String entrada = scanner.nextLine().trim().replace(",", ".");
@@ -148,7 +157,7 @@ public class TerminalBancarioController {
         }
     }
 
-    public void exibirMovimentacoes() {
+    private void exibirMovimentacoes() {
         System.out.println("\n--- Histórico de Movimentações ---");
         List<Movimentacao> movimentacoes = conta.getMovimentacoes();
 
@@ -165,11 +174,11 @@ public class TerminalBancarioController {
         System.out.printf("%-22s | %-12s | %s%n", "Data/Hora", "Tipo", "Valor");
         System.out.println("-------------------------------------------------------");
 
-        for (Movimentacao mov : movimentacoes) {
-            System.out.printf("%-22s | %-12s | %s%n",
-                    mov.getDataHora().format(formatter),
-                    mov.getTipo(),
-                    mov.getValor());
-        }
+        movimentacoes.stream()
+                .forEach(mov -> System.out.printf("%-22s | %-12s | %s%n",
+                        mov.getDataHora().format(formatter),
+                        mov.getTipo(),
+                        mov.getValor()));
+
     }
 }
