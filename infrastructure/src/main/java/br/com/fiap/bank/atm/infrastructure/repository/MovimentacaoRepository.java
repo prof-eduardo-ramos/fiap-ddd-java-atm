@@ -1,4 +1,4 @@
-package br.com.fiap.bank.atm.infrastructure;
+package br.com.fiap.bank.atm.infrastructure.repository;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -15,7 +15,7 @@ import br.com.fiap.bank.atm.domain.Movimentacao;
 import br.com.fiap.bank.atm.domain.TipoMovimentacao;
 
 public class MovimentacaoRepository implements ATMRepository<Movimentacao> {
-     // Lista insegura atual do FIAP Bank
+    // Lista insegura atual do FIAP Bank
     private Set<Movimentacao> movimentacoes = new HashSet<>();
 
     public void adicionar(Movimentacao entidade) {
@@ -24,11 +24,9 @@ public class MovimentacaoRepository implements ATMRepository<Movimentacao> {
 
     // O jeito antigo (Java 7-): Risco altíssimo de NullPointerException
     public Optional<Movimentacao> buscarPorId(UUID id) {
-        return 
-            movimentacoes.stream()
+        return movimentacoes.stream()
                 .filter(movimentacao -> movimentacao.getId().equals(id))
-                .findFirst()
-        ;
+                .findFirst();
     }
 
     public void remover(UUID id) {
@@ -42,24 +40,22 @@ public class MovimentacaoRepository implements ATMRepository<Movimentacao> {
 
     public List<String> gerarRecibosSimples() {
         return movimentacoes.stream()
-            .map(movimentacao -> "RECIBO | " + movimentacao.getTipo() + " - Valor: R$ " + movimentacao.getValor().getValor())
-            .collect(Collectors.toList())
-        ;
+                .map(movimentacao -> "RECIBO | " + movimentacao.getTipo() + " - Valor: R$ "
+                        + movimentacao.getValor().getValor())
+                .collect(Collectors.toList());
     }
 
     public List<Movimentacao> obterSaques() {
         return movimentacoes.stream()
-            .filter(movimentacao -> TipoMovimentacao.SAQUE.equals(movimentacao.getTipo()))
-            .collect(Collectors.toList())
-        ;
+                .filter(movimentacao -> TipoMovimentacao.SAQUE.equals(movimentacao.getTipo()))
+                .collect(Collectors.toList());
     }
 
-    // Agrupa todas as movimentacoes separadas por conta utilizando a Entidade inteira como chave
+    // Agrupa todas as movimentacoes separadas por conta utilizando a Entidade
+    // inteira como chave
     public Map<TipoMovimentacao, List<Movimentacao>> gerarExtratoAgrupado() {
         return movimentacoes.stream()
-                .collect(Collectors.groupingBy(Movimentacao::getTipo))
-            ;
+                .collect(Collectors.groupingBy(Movimentacao::getTipo));
     }
-
 
 }

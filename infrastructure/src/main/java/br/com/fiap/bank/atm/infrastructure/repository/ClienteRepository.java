@@ -1,4 +1,4 @@
-package br.com.fiap.bank.atm.infrastructure;
+package br.com.fiap.bank.atm.infrastructure.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,6 +32,5 @@ public class ClienteRepository implements ATMRepository<Cliente> {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'buscarTodas'");
     }
-
 
 }

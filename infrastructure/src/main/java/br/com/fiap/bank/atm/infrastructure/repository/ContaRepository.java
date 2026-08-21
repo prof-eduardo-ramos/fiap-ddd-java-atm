@@ -1,4 +1,4 @@
-package br.com.fiap.bank.atm.infrastructure;
+package br.com.fiap.bank.atm.infrastructure.repository;
 
 import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.interfaces.ATMRepository;
@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-
 
 public class ContaRepository implements ATMRepository<Conta> {
 
