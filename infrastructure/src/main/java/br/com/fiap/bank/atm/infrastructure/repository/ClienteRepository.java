@@ -33,4 +33,10 @@ public class ClienteRepository implements ATMRepository<Cliente> {
         throw new UnsupportedOperationException("Unimplemented method 'buscarTodas'");
     }
 
+    @Override
+    public void atualizar(Cliente entidade) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'atualizar'");
+    }
+
 }

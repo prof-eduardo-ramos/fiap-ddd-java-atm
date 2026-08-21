@@ -10,7 +10,6 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import br.com.fiap.bank.atm.domain.interfaces.ATMRepository;
-import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.Movimentacao;
 import br.com.fiap.bank.atm.domain.TipoMovimentacao;
 
@@ -56,6 +55,12 @@ public class MovimentacaoRepository implements ATMRepository<Movimentacao> {
     public Map<TipoMovimentacao, List<Movimentacao>> gerarExtratoAgrupado() {
         return movimentacoes.stream()
                 .collect(Collectors.groupingBy(Movimentacao::getTipo));
+    }
+
+    @Override
+    public void atualizar(Movimentacao entidade) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'atualizar'");
     }
 
 }
