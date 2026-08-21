@@ -10,6 +10,8 @@ public interface ATMRepository<T extends BaseEntity> {
 
     void adicionar(T entidade);
 
+    void atualizar(T entidade);
+
     Optional<T> buscarPorId(UUID id);
 
     void remover(UUID id);

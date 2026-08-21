@@ -52,4 +52,10 @@ public class ContaRepository implements ATMRepository<Conta> {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'buscarTodas'");
     }
+
+    @Override
+    public void atualizar(Conta entidade) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'atualizar'");
+    }
 }

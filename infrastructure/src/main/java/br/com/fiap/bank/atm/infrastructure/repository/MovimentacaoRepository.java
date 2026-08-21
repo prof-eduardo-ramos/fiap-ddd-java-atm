@@ -53,4 +53,10 @@ public class MovimentacaoRepository implements ATMRepository<Movimentacao> {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
+    @Override
+    public void atualizar(Movimentacao entidade) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'atualizar'");
+    }
+
 }
