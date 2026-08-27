@@ -1,6 +1,7 @@
 package br.com.fiap.bank.atm.infrastructure.repository.jdbc;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -20,12 +21,18 @@ public class ContaRepositoryJdbcImpl implements ATMRepository<Conta> {
 
     @Override
     public void adicionar(Conta conta) {
-        String sql = "INSERT INTO tb_conta (id, cliente_id, agencia, numero, saldo, status) VALUES " +
-                "('" + conta.getId() + "', '" + conta.getCliente().getId() + "', '" + conta.getAgencia() + "', '"
-                + conta.getNumero() + "', " + conta.getSaldo() + ", '" + conta.getStatus().name() + "')";
+        String sql = "INSERT INTO tb_conta (id, cliente_id, agencia, numero, saldo, status) VALUES (?,?,?,?,?,?)";
 
-        try (Connection conn = DatabaseConnectionFactory.getConnection(); Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(sql);
+        try (Connection conn = DatabaseConnectionFactory.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, conta.getId().toString());
+            stmt.setString(2, conta.getCliente().getId().toString());
+            stmt.setString(3, conta.getAgencia());
+            stmt.setString(4, conta.getNumero());
+            stmt.setBigDecimal(5, conta.getSaldo().getValor());
+            stmt.setString(6, conta.getStatus().name());
+
+            stmt.executeUpdate();
+            
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao adicionar a conta", e);
         }
@@ -33,12 +40,13 @@ public class ContaRepositoryJdbcImpl implements ATMRepository<Conta> {
 
     @Override
     public void atualizar(Conta conta) {
-        String sql = "UPDATE tb_conta SET saldo = " + conta.getSaldo() +
-                ", status = '" + conta.getStatus().name() +
-                "' WHERE id = '" + conta.getId() + "'";
+        String sql = "UPDATE tb_conta SET saldo = ?, status = ? WHERE id = ?";
 
-        try (Connection conn = DatabaseConnectionFactory.getConnection(); Statement stmt = conn.createStatement()) {
-            stmt.executeUpdate(sql);
+        try (Connection conn = DatabaseConnectionFactory.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setBigDecimal(1, conta.getSaldo().getValor());
+            stmt.setString(2, conta.getStatus().name());
+            stmt.setString(3, conta.getId().toString());
+            stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao atualizar a conta", e);
         }
@@ -46,14 +54,13 @@ public class ContaRepositoryJdbcImpl implements ATMRepository<Conta> {
 
     @Override
     public Optional<Conta> buscarPorId(UUID id) {
-        String sql = "SELECT * FROM tb_conta co, tb_cliente cl, tb_conta_acesso ca WHERE cl.id = co.cliente_id AND co.id = ca.conta_id AND co.id = '"
-                + id.toString() + "'";
+        String sql = "SELECT * FROM tb_conta co, tb_cliente cl, tb_conta_acesso ca WHERE cl.id = co.cliente_id AND co.id = ca.conta_id AND co.id = ?";
 
-        try (Connection conn = DatabaseConnectionFactory.getConnection();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conn = DatabaseConnectionFactory.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+                stmt.setString(1, id.toString());
+                ResultSet rs = stmt.executeQuery();
 
-            if (rs.next()) {
+            while (rs.next()) {
                 Cliente cliente = new Cliente(rs.getString("nome"));
                 ContaAcesso contaAcesso = new ContaAcesso(rs.getString("senha"));
                 Conta conta = new ContaCorrente(
@@ -70,8 +77,14 @@ public class ContaRepositoryJdbcImpl implements ATMRepository<Conta> {
 
     @Override
     public void remover(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remover'");
+        String sql = "DELETE FROM tb_conta WHERE id = ?";
+
+        try (Connection conn = DatabaseConnectionFactory.getConnection(); PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, id.toString());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao remover a conta", e);
+        }
     }
 
     @Override
