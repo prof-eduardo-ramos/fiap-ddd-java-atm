@@ -10,10 +10,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 import br.com.fiap.bank.atm.domain.ContaAcesso;
-import br.com.fiap.bank.atm.domain.interfaces.ATMRepository;
+import br.com.fiap.bank.atm.domain.interfaces.ContaAcessoRepository;
 import br.com.fiap.bank.atm.infrastructure.database.DatabaseConnectionFactory;
 
-public class ContaAcessoRepositoryJdbcImpl implements ATMRepository<ContaAcesso> {
+public class ContaAcessoRepositoryJdbcImpl implements ContaAcessoRepository {
 
     @Override
     public void adicionar(ContaAcesso entidade) {

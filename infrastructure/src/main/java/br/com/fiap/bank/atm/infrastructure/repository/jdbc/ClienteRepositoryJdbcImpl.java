@@ -10,10 +10,10 @@ import java.util.Optional;
 import java.util.UUID;
 
 import br.com.fiap.bank.atm.domain.Cliente;
-import br.com.fiap.bank.atm.domain.interfaces.ATMRepository;
+import br.com.fiap.bank.atm.domain.interfaces.ClienteRepository;
 import br.com.fiap.bank.atm.infrastructure.database.DatabaseConnectionFactory;
 
-public class ClienteRepositoryJdbcImpl implements ATMRepository<Cliente> {
+public class ClienteRepositoryJdbcImpl implements ClienteRepository {
 
     @Override
     public void adicionar(Cliente cliente) {

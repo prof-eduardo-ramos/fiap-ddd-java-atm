@@ -15,10 +15,10 @@ import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.ContaAcesso;
 import br.com.fiap.bank.atm.domain.ContaCorrente;
 import br.com.fiap.bank.atm.domain.Dinheiro;
-import br.com.fiap.bank.atm.domain.interfaces.ATMRepository;
+import br.com.fiap.bank.atm.domain.interfaces.ContaRepository;
 import br.com.fiap.bank.atm.infrastructure.database.DatabaseConnectionFactory;
 
-public class ContaRepositoryJdbcImpl implements ATMRepository<Conta> {
+public class ContaRepositoryJdbcImpl implements ContaRepository {
 
     @Override
     public void adicionar(Conta conta) {
