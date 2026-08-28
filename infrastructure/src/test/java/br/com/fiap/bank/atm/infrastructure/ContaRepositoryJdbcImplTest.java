@@ -28,7 +28,7 @@ public class ContaRepositoryJdbcImplTest {
         Cliente cliente = new Cliente("Teste nome cliente", "12345678901");
         ContaAcesso contaAcesso = new ContaAcesso("1234");
         Dinheiro saldo = new Dinheiro(new BigDecimal("1000.00"));
-        Conta conta = new ContaCorrente(cliente, contaAcesso, saldo);
+        Conta conta = new ContaCorrente("1234", "56789", cliente, contaAcesso, saldo);
 
         ContaRepositoryJdbcImpl repository = new ContaRepositoryJdbcImpl();
         repository.adicionar(conta);
