@@ -2,7 +2,7 @@ package br.com.fiap.bank.atm.domain;
 
 // Essa classe cuida da parte de segurança da conta: senha e bloqueio.
 // Separei do modelo de Conta para não misturar regra financeira com autenticação.
-public class ContaAcesso {
+public class ContaAcesso extends BaseEntity {
 
     // Deixei como constante para ficar fácil de mudar no futuro se precisar.
     public static final Integer MAXIMO_TENTATIVAS = 3;
@@ -15,6 +15,18 @@ public class ContaAcesso {
         this.senha = senha;
         this.tentativas = 0;
         this.bloqueado = Boolean.FALSE;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public Integer getTentativas() {
+        return tentativas;
+    }
+
+    public Boolean getBloqueado() {
+        return bloqueado;
     }
 
     // Esse método valida a senha e já controla as tentativas automaticamente.

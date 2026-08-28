@@ -4,8 +4,9 @@ package br.com.fiap.bank.atm.domain;
 public class Cliente extends BaseEntity {
 
     private String nomeCompleto;
+    private String cpf;
 
-    public Cliente(String nomeCompleto) {
+    public Cliente(String nomeCompleto, String cpf) {
         super();
         // Coloquei essa validação porque não faz sentido criar um cliente sem nome.
         // O trim() remove espaços em branco, então um nome só com espaços também é
@@ -24,6 +25,10 @@ public class Cliente extends BaseEntity {
 
     public String getNomeCompleto() {
         return nomeCompleto;
+    }
+
+    public String getCpf() {
+        return cpf;
     }
 
     @Override
