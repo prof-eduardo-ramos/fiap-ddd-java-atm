@@ -28,7 +28,7 @@ public class Main {
         // Conta conta = ContaFactory.getInstance().criarContaCorrente(cliente,
         // contaAcesso, saldoInicial);
 
-        ContaService contaService = new ContaService(conta);
+        ContaService contaService = new ContaService();
         // contaService.salvarConta();
 
         TerminalBancarioController terminal = new TerminalBancarioController(conta);
