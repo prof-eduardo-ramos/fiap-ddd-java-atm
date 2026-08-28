@@ -19,7 +19,7 @@ public class ClienteRepositoryJdbcImplTest {
     @Test
     public void deveInserirEBuscarClienteNoBancoDeDados() {
         ATMRepository<Cliente> repository = new ClienteRepositoryJdbcImpl();
-        Cliente cliente = new Cliente("Teste Cliente Repository");
+        Cliente cliente = new Cliente("Teste Cliente Repository", "12345678901");
 
         repository.adicionar(cliente);
 
@@ -29,7 +29,7 @@ public class ClienteRepositoryJdbcImplTest {
 
     @Test
     public void deveAtualizarDadosDoCliente() {
-        
+
     }
 
 }

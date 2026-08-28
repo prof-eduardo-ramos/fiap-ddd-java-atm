@@ -25,7 +25,7 @@ public class ContaRepositoryJdbcImplTest {
 
     @Test
     public void deveSalvaContaNoBancoDeDados() {
-        Cliente cliente = new Cliente("Teste nome cliente");
+        Cliente cliente = new Cliente("Teste nome cliente", "12345678901");
         ContaAcesso contaAcesso = new ContaAcesso("1234");
         Dinheiro saldo = new Dinheiro(new BigDecimal("1000.00"));
         Conta conta = new ContaCorrente(cliente, contaAcesso, saldo);
