@@ -2,6 +2,7 @@ package br.com.fiap.bank.atm.presentation;
 
 import java.util.Scanner;
 
+import br.com.fiap.bank.atm.application.ContaService;
 import br.com.fiap.bank.atm.domain.Cliente;
 import br.com.fiap.bank.atm.domain.ContaAcesso;
 import br.com.fiap.bank.atm.domain.Dinheiro;
@@ -10,9 +11,11 @@ public class CadastrarContaAcessoController {
 
     private static final String SEPARADOR = "============================================";
 
+    private final ContaService contaService;
     private Scanner scanner;
 
-    public CadastrarContaAcessoController() {
+    public CadastrarContaAcessoController(ContaService contaService) {
+        this.contaService = contaService;
         this.scanner = new Scanner(System.in);
     }
 

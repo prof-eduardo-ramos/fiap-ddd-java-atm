@@ -16,7 +16,9 @@ public class Main {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-        CadastrarContaAcessoController cadastrarContaAcessoController = new CadastrarContaAcessoController();
+        ContaService contaService = new ContaService();
+        CadastrarContaAcessoController cadastrarContaAcessoController = new CadastrarContaAcessoController(
+                contaService);
         cadastrarContaAcessoController.iniciar();
 
         // Cliente cliente = cadastrarContaAcessoController.cadastrarCliente();
@@ -28,10 +30,7 @@ public class Main {
         // Conta conta = ContaFactory.getInstance().criarContaCorrente(cliente,
         // contaAcesso, saldoInicial);
 
-        ContaService contaService = new ContaService();
-        contaService.salvarConta();
-
-        TerminalBancarioController terminal = new TerminalBancarioController(conta);
+        TerminalBancarioController terminal = new TerminalBancarioController(contaService);
         terminal.iniciar();
 
         scanner.close();

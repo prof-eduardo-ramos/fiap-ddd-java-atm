@@ -1,5 +1,6 @@
 package br.com.fiap.bank.atm.presentation;
 
+import br.com.fiap.bank.atm.application.ContaService;
 import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.Dinheiro;
 import br.com.fiap.bank.atm.domain.Movimentacao;
@@ -9,20 +10,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Scanner;
 
-// Controlador do terminal bancário — é a camada de apresentação do sistema.
-// Essa classe só conversa com o usuário via terminal e chama os services para fazer as operações.
-// Não coloquei lógica de negócio aqui, só leitura de entrada e exibição de resultado.
 public class TerminalBancarioController {
 
-    private Conta conta;
+    private final ContaService contaService;
     private Scanner scanner;
 
-    // Constante para o separador visual do terminal, evita repetir a string em
-    // vários lugares.
     private static final String SEPARADOR = "============================================";
 
-    public TerminalBancarioController(Conta conta) {
-        this.conta = conta;
+    public TerminalBancarioController(ContaService contaService) {
+        this.contaService = contaService;
         this.scanner = new Scanner(System.in);
     }
 
@@ -142,7 +138,7 @@ public class TerminalBancarioController {
 
         try {
             BigDecimal valor = new BigDecimal(entrada);
-            conta.realizarSaque(new Dinheiro(valor));
+            contaService.realizarSaque(new Dinheiro(valor));
             System.out.println("Saque realizado com sucesso!");
             System.out.println("Novo saldo: " + conta.getSaldo());
         } catch (NumberFormatException e) {
