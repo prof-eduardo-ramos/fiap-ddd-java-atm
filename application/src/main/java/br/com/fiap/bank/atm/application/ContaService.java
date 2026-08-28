@@ -9,7 +9,6 @@ import br.com.fiap.bank.atm.domain.Dinheiro;
 import br.com.fiap.bank.atm.domain.Movimentacao;
 import br.com.fiap.bank.atm.domain.interfaces.ATMRepository;
 import br.com.fiap.bank.atm.domain.interfaces.MovimentacaoRepository;
-import br.com.fiap.bank.atm.infrastructure.repository.ContaRepository;
 import br.com.fiap.bank.atm.infrastructure.repository.jdbc.ClienteRepositoryJdbcImpl;
 import br.com.fiap.bank.atm.infrastructure.repository.jdbc.ContaAcessoRepositoryJdbcImpl;
 import br.com.fiap.bank.atm.infrastructure.repository.jdbc.ContaRepositoryJdbcImpl;

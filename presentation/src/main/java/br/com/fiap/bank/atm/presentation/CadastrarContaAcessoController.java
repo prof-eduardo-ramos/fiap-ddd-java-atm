@@ -14,8 +14,6 @@ public class CadastrarContaAcessoController {
 
     private final ContaService contaService;
     private Scanner scanner;
-    private ContaService contaService;
-    private Conta conta;
 
     public CadastrarContaAcessoController(ContaService contaService) {
         this.contaService = contaService;
