@@ -70,7 +70,7 @@ public class ContaRepositoryJdbcImpl implements ATMRepository<Conta> {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
-                Cliente cliente = new Cliente(rs.getString("nome"));
+                Cliente cliente = new Cliente(rs.getString("nome"), rs.getString("cpf"));
                 ContaAcesso contaAcesso = new ContaAcesso(rs.getString("senha"));
                 Conta conta = new ContaCorrente(
                         cliente,
@@ -107,7 +107,7 @@ public class ContaRepositoryJdbcImpl implements ATMRepository<Conta> {
             List<Conta> contas = new ArrayList<>();
 
             while (rs.next()) {
-                Cliente cliente = new Cliente(rs.getString("nome"));
+                Cliente cliente = new Cliente(rs.getString("nome"), rs.getString("cpf"));
                 ContaAcesso contaAcesso = new ContaAcesso(rs.getString("senha"));
                 contas.add(new ContaCorrente(
                         cliente,
