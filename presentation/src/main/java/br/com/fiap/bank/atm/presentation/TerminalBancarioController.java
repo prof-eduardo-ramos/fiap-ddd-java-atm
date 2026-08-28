@@ -3,10 +3,6 @@ package br.com.fiap.bank.atm.presentation;
 import br.com.fiap.bank.atm.application.ContaService;
 import br.com.fiap.bank.atm.application.dto.ContaDTO;
 import br.com.fiap.bank.atm.application.dto.MovimentacaoDTO;
-import br.com.fiap.bank.atm.domain.Conta;
-import br.com.fiap.bank.atm.domain.Dinheiro;
-import br.com.fiap.bank.atm.domain.Movimentacao;
-
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
