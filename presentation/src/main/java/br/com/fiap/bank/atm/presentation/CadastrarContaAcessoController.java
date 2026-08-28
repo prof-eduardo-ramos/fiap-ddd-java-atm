@@ -1,12 +1,11 @@
 package br.com.fiap.bank.atm.presentation;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
-import br.com.fiap.bank.atm.application.ContaFactory;
+import java.util.UUID;
+
 import br.com.fiap.bank.atm.application.ContaService;
-import br.com.fiap.bank.atm.domain.Cliente;
-import br.com.fiap.bank.atm.domain.Conta;
-import br.com.fiap.bank.atm.domain.ContaAcesso;
-import br.com.fiap.bank.atm.domain.Dinheiro;
+import br.com.fiap.bank.atm.application.dto.CadastrarContaDTO;
 
 public class CadastrarContaAcessoController {
 
@@ -20,38 +19,42 @@ public class CadastrarContaAcessoController {
         this.scanner = new Scanner(System.in);
     }
 
-    public Conta getConta() {
-        return this.conta;
-    }
-
-    private Conta criarContaCorrente() {
+    public UUID executar() {
         System.out.println(SEPARADOR);
         System.out.println("     CADASTRO DE CONTA DE ACESSO     ");
         System.out.println(SEPARADOR);
 
-        this.conta = ContaFactory.getInstance().criarContaCorrente(cadastrarCliente(),
-                cadastrarContaAcesso(), cadastrarSaldoInicial());
-        return this.conta;
+        return contaService.salvarConta(
+                new CadastrarContaDTO(
+                        registrarNomeCliente(),
+                        registrarCPFCliente(),
+                        registrarSenhaAcesso(),
+                        registrarSaldoInicial()));
     }
 
-    private Cliente cadastrarCliente() {
-        System.out.print("Digite o nome do cliente: ");
-        String nome = scanner.nextLine();
-        return new Cliente(nome);
+    private String registrarNomeCliente() {
+        System.out.print("Informe o Nome Completo: ");
+        return scanner.nextLine();
     }
 
-    private ContaAcesso cadastrarContaAcesso() {
+    private String registrarCPFCliente() {
+        System.out.print("Informe o CPF: ");
+        return scanner.nextLine();
+    }
+
+    private String registrarSenhaAcesso() {
 
         System.out.print("Digite a senha de 4 dígitos: ");
-        String senha = scanner.nextLine();
+        String senhaAcesso = scanner.nextLine();
 
         // Valida se a senha tem 4 dígitos, se é composta apenas por números, se não é
         // 0000 e nem 1234 através de Regular Expression
         int quantidadeDeTentativas = 3;
 
-        while (senha.length() != 4 || !senha.matches("\\d{4}") || senha.equals("0000") || senha.equals("1234")) {
+        while (senhaAcesso.length() != 4 || !senhaAcesso.matches("\\d{4}") || senhaAcesso.equals("0000")
+                || senhaAcesso.equals("1234")) {
             System.out.println("Senha inválida. Digite uma senha de 4 dígitos:");
-            senha = scanner.nextLine();
+            senhaAcesso = scanner.nextLine();
             quantidadeDeTentativas--;
 
             if (quantidadeDeTentativas <= 0) {
@@ -59,13 +62,12 @@ public class CadastrarContaAcessoController {
                 break;
             }
         }
-        return new ContaAcesso(senha);
+        return senhaAcesso;
     }
 
-    private Dinheiro cadastrarSaldoInicial() {
+    private BigDecimal registrarSaldoInicial() {
         System.out.print("Digite o saldo inicial: ");
-        Dinheiro saldoInicial = new Dinheiro(scanner.nextLine());
-        return saldoInicial;
+        return new BigDecimal(scanner.nextLine());
     }
 
 }

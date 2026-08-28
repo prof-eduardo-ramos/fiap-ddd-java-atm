@@ -1,5 +1,6 @@
 package br.com.fiap.bank.atm.application;
 
+import br.com.fiap.bank.atm.application.dto.CadastrarContaDTO;
 import br.com.fiap.bank.atm.application.dto.ContaDTO;
 import br.com.fiap.bank.atm.application.dto.MovimentacaoDTO;
 import br.com.fiap.bank.atm.domain.Cliente;
@@ -88,15 +89,17 @@ public class ContaService {
         return "";
     }
 
-    public void salvarConta(ContaDTO dto) {
+    public UUID salvarConta(CadastrarContaDTO dto) {
         Cliente cliente = new Cliente(dto.nomeCliente(), dto.cpfCliente());
         ContaAcesso contaAcesso = new ContaAcesso(dto.senha());
-        Dinheiro saldo = new Dinheiro(dto.saldo());
+        Dinheiro saldo = new Dinheiro(dto.saldoInicial());
         Conta conta = ContaFactory.getInstance().criarContaCorrente(cliente, contaAcesso, saldo);
 
         clienteRepository.adicionar(cliente);
         contaRepository.adicionar(conta);
         contaAcessoRepository.adicionar(contaAcesso);
+
+        return conta.getId();
     }
 
     public Optional<ContaDTO> buscarContaPorId(UUID idConta) {
