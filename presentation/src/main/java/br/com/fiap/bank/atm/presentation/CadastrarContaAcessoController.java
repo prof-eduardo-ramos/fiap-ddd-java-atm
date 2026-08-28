@@ -28,6 +28,8 @@ public class CadastrarContaAcessoController {
                 new CadastrarContaDTO(
                         registrarNomeCliente(),
                         registrarCPFCliente(),
+                        registrarNumeroConta(),
+                        registrarAgencia(),
                         registrarSenhaAcesso(),
                         registrarSaldoInicial()));
     }
@@ -63,6 +65,16 @@ public class CadastrarContaAcessoController {
             }
         }
         return senhaAcesso;
+    }
+
+    private String registrarNumeroConta() {
+        System.out.print("Digite o número da Conta: ");
+        return scanner.nextLine();
+    }
+
+    private String registrarAgencia() {
+        System.out.print("Digite o número da Agência: ");
+        return scanner.nextLine();
     }
 
     private BigDecimal registrarSaldoInicial() {

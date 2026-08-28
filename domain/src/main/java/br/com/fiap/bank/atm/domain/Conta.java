@@ -23,7 +23,7 @@ public abstract class Conta extends BaseEntity {
     protected ContaAcesso contaAcesso;
     protected List<Movimentacao> movimentacoes;
 
-    public Conta(Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo, Double taxa) {
+    public Conta(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo, Double taxa) {
         super();
         // Validações logo no construtor para garantir que nenhum objeto inválido seja
         // criado.
@@ -38,6 +38,8 @@ public abstract class Conta extends BaseEntity {
         if (saldo == null) {
             throw new IllegalArgumentException("Saldo não pode ser nulo.");
         }
+        this.numero = numero;
+        this.agencia = agencia;
         this.cliente = cliente;
         this.contaAcesso = contaAcesso;
         this.saldo = saldo;

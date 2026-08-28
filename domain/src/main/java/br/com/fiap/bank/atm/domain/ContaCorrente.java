@@ -9,10 +9,10 @@ public class ContaCorrente extends Conta {
     // Defini como constante para não ter número mágico solto no código.
     private static final Double TAXA_MANUTENCAO = 25.00;
 
-    public ContaCorrente(Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo) {
+    public ContaCorrente(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo) {
         // Passa a taxa para a classe pai, assim ela fica registrada no atributo taxa da
         // Conta.
-        super(cliente, contaAcesso, saldo, TAXA_MANUTENCAO);
+        super(numero, agencia, cliente, contaAcesso, saldo, TAXA_MANUTENCAO);
     }
 
     // Esse método é chamado automaticamente após cada saque (a lógica está em

@@ -28,11 +28,13 @@ public class ContaFactory {
 
     // Retorna Conta (tipo pai) em vez de ContaCorrente para que quem chama
     // não precise depender do tipo específico — só usa a interface de Conta.
-    public Conta criarContaCorrente(Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo) {
-        return new ContaCorrente(cliente, contaAcesso, saldo);
+    public Conta criarContaCorrente(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso,
+            Dinheiro saldo) {
+        return new ContaCorrente(numero, agencia, cliente, contaAcesso, saldo);
     }
 
-    public Conta criarContaPoupanca(Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo) {
-        return new ContaPoupanca(cliente, contaAcesso, saldo);
+    public Conta criarContaPoupanca(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso,
+            Dinheiro saldo) {
+        return new ContaPoupanca(numero, agencia, cliente, contaAcesso, saldo);
     }
 }

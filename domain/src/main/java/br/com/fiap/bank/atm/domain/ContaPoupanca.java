@@ -10,8 +10,8 @@ public class ContaPoupanca extends Conta {
     // Percentual de rendimento mensal da poupança.
     private static final double RENDIMENTO_MENSAL = 1.1;
 
-    public ContaPoupanca(Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo) {
-        super(cliente, contaAcesso, saldo, RENDIMENTO_MENSAL);
+    public ContaPoupanca(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo) {
+        super(numero, agencia, cliente, contaAcesso, saldo, RENDIMENTO_MENSAL);
     }
 
     // Poupança não tem taxa de saque, então deixei vazio de propósito.

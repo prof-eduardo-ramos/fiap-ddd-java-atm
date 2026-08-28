@@ -93,7 +93,8 @@ public class ContaService {
         Cliente cliente = new Cliente(dto.nomeCliente(), dto.cpfCliente());
         ContaAcesso contaAcesso = new ContaAcesso(dto.senha());
         Dinheiro saldo = new Dinheiro(dto.saldoInicial());
-        Conta conta = ContaFactory.getInstance().criarContaCorrente(cliente, contaAcesso, saldo);
+        Conta conta = ContaFactory.getInstance().criarContaCorrente(dto.numero(), dto.agencia(), cliente, contaAcesso,
+                saldo);
 
         clienteRepository.adicionar(cliente);
         contaRepository.adicionar(conta);
