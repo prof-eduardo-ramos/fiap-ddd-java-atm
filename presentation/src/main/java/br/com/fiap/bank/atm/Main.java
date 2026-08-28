@@ -19,13 +19,16 @@ public class Main {
         CadastrarContaAcessoController cadastrarContaAcessoController = new CadastrarContaAcessoController();
         cadastrarContaAcessoController.iniciar();
 
-        Cliente cliente = cadastrarContaAcessoController.cadastrarCliente();
-        ContaAcesso contaAcesso = cadastrarContaAcessoController.cadastrarContaAcesso();
-        Dinheiro saldoInicial = cadastrarContaAcessoController.cadastrarSaldoInicial();
+        // Cliente cliente = cadastrarContaAcessoController.cadastrarCliente();
+        // ContaAcesso contaAcesso =
+        // cadastrarContaAcessoController.cadastrarContaAcesso();
+        // Dinheiro saldoInicial =
+        // cadastrarContaAcessoController.cadastrarSaldoInicial();
 
-        Conta conta = ContaFactory.getInstance().criarContaCorrente(cliente, contaAcesso, saldoInicial);
+        // Conta conta = ContaFactory.getInstance().criarContaCorrente(cliente,
+        // contaAcesso, saldoInicial);
 
-        ContaService contaService = new ContaService(conta);
+        ContaService contaService = new ContaService();
         contaService.salvarConta();
 
         TerminalBancarioController terminal = new TerminalBancarioController(conta);

@@ -19,12 +19,6 @@
     <dependencies>
         <dependency>
             <groupId>br.com.fiap.bank</groupId>
-            <artifactId>domain</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>br.com.fiap.bank</groupId>
             <artifactId>application</artifactId>
             <version>1.0.0</version>
         </dependency>
