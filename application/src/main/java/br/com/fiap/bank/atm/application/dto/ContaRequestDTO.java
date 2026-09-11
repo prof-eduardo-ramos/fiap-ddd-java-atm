@@ -9,5 +9,4 @@ public record ContaRequestDTO(
                 String agencia,
                 String senha,
                 BigDecimal saldoInicial) {
-
 }
