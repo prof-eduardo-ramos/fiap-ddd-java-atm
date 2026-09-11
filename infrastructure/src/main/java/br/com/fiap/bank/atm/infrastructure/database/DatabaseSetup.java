@@ -9,7 +9,11 @@ public class DatabaseSetup {
                 CREATE TABLE IF NOT EXISTS tb_cliente (
                     id VARCHAR(36) PRIMARY KEY,
                     nome VARCHAR(100) NOT NULL,
+<<<<<<< HEAD
                     cpf VARCHAR(14) NOT NULL UNIQUE
+=======
+                    cpf VARCHAR(14)
+>>>>>>> 83c1325e2aa2142231e68628e45dd5bf286b76ab
                 );""";
 
         String sqlConta = """

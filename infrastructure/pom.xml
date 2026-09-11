@@ -38,7 +38,10 @@
             <version>5.10.2</version>
             <scope>test</scope>
         </dependency>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83c1325e2aa2142231e68628e45dd5bf286b76ab
     </dependencies>
 
 </project>

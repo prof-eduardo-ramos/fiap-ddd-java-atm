@@ -30,6 +30,7 @@
             <version>1.0.0</version>
         </dependency>
     </dependencies>
+<<<<<<< HEAD
 
     <!-- Package a jar with the dependencies -->
     <!--<build>
@@ -60,4 +61,6 @@
         </plugins>
     </build>-->
 
+=======
+>>>>>>> 83c1325e2aa2142231e68628e45dd5bf286b76ab
 </project>

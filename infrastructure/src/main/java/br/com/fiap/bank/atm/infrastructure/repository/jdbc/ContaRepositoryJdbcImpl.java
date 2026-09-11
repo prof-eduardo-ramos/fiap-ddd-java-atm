@@ -15,6 +15,7 @@ import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.ContaAcesso;
 import br.com.fiap.bank.atm.domain.ContaCorrente;
 import br.com.fiap.bank.atm.domain.Dinheiro;
+<<<<<<< HEAD
 import br.com.fiap.bank.atm.domain.interfaces.ATMRepository;
 import br.com.fiap.bank.atm.infrastructure.database.DatabaseConnectionFactory;
 
@@ -26,13 +27,30 @@ public class ContaRepositoryJdbcImpl implements ATMRepository<Conta> {
 
         try (Connection conn = DatabaseConnectionFactory.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
+=======
+import br.com.fiap.bank.atm.domain.interfaces.ContaRepository;
+import br.com.fiap.bank.atm.infrastructure.database.DatabaseConnectionFactory;
+
+public class ContaRepositoryJdbcImpl implements ContaRepository {
+
+    @Override
+    public void adicionar(Conta conta) {
+        String sql = "INSERT INTO tb_conta (id, cliente_id, agencia, numero, saldo, status) VALUES (?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DatabaseConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+>>>>>>> 83c1325e2aa2142231e68628e45dd5bf286b76ab
             stmt.setString(1, conta.getId().toString());
             stmt.setString(2, conta.getCliente().getId().toString());
             stmt.setString(3, conta.getAgencia());
             stmt.setString(4, conta.getNumero());
             stmt.setBigDecimal(5, conta.getSaldo().getValor());
             stmt.setString(6, conta.getStatus().name());
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83c1325e2aa2142231e68628e45dd5bf286b76ab
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -42,6 +60,7 @@ public class ContaRepositoryJdbcImpl implements ATMRepository<Conta> {
 
     @Override
     public void atualizar(Conta conta) {
+<<<<<<< HEAD
         String sql = "UPDATE tb_conta SET saldo = ?, status = ? WHERE id = ?";
 
         try (Connection conn = DatabaseConnectionFactory.getConnection();
@@ -52,6 +71,21 @@ public class ContaRepositoryJdbcImpl implements ATMRepository<Conta> {
             stmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Erro ao atualizar a conta", e);
+=======
+        String sql = "UPDATE tb_conta SET saldo = ?, status = ? WHERE numero = ?";
+
+        try (Connection conn = DatabaseConnectionFactory.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            // Os parâmetros são definidos explicitamente com seus tipos
+            stmt.setBigDecimal(1, conta.getSaldo().getValor());
+            stmt.setString(2, conta.getStatus().name());
+            stmt.setString(3, conta.getNumero());
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException("Erro ao salvar a conta", e);
+>>>>>>> 83c1325e2aa2142231e68628e45dd5bf286b76ab
         }
     }
 
@@ -61,6 +95,7 @@ public class ContaRepositoryJdbcImpl implements ATMRepository<Conta> {
 
         try (Connection conn = DatabaseConnectionFactory.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
+<<<<<<< HEAD
             stmt.setString(1, id.toString());
             ResultSet rs = stmt.executeQuery();
 
@@ -71,6 +106,25 @@ public class ContaRepositoryJdbcImpl implements ATMRepository<Conta> {
                         cliente,
                         contaAcesso,
                         new Dinheiro(rs.getBigDecimal("saldo")));
+=======
+
+            stmt.setString(1, id.toString());
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                Cliente cliente = new Cliente(rs.getString("nome"), rs.getString("cpf"));
+                ContaAcesso contaAcesso = new ContaAcesso(rs.getString("senha"));
+                String numero = rs.getString("numero");
+                String agencia = rs.getString("agencia");
+                ContaCorrente contaCorrente = new ContaCorrente(
+                        numero,
+                        agencia,
+                        cliente,
+                        contaAcesso,
+                        new Dinheiro(rs.getBigDecimal("saldo")));
+                Conta conta = contaCorrente;
+>>>>>>> 83c1325e2aa2142231e68628e45dd5bf286b76ab
                 return Optional.of(conta);
             }
         } catch (SQLException e) {
@@ -104,7 +158,15 @@ public class ContaRepositoryJdbcImpl implements ATMRepository<Conta> {
             while (rs.next()) {
                 Cliente cliente = new Cliente(rs.getString("nome"), rs.getString("cpf"));
                 ContaAcesso contaAcesso = new ContaAcesso(rs.getString("senha"));
+<<<<<<< HEAD
                 contas.add(new ContaCorrente(
+=======
+                String numero = rs.getString("numero");
+                String agencia = rs.getString("agencia");
+                contas.add(new ContaCorrente(
+                        numero,
+                        agencia,
+>>>>>>> 83c1325e2aa2142231e68628e45dd5bf286b76ab
                         cliente,
                         contaAcesso,
                         new Dinheiro(rs.getBigDecimal("saldo"))));

@@ -8,13 +8,14 @@ public class Cliente extends BaseEntity {
 
     public Cliente(String nomeCompleto, String cpf) {
         super();
-        // Coloquei essa validação porque não faz sentido criar um cliente sem nome.
-        // O trim() remove espaços em branco, então um nome só com espaços também é
-        // inválido.
         if (nomeCompleto == null || nomeCompleto.trim().isEmpty()) {
             throw new IllegalArgumentException("Nome completo é obrigatório.");
         }
+        if (cpf == null || cpf.trim().isEmpty()) {
+            throw new IllegalArgumentException("CPF é obrigatório.");
+        }
         this.nomeCompleto = nomeCompleto;
+        this.cpf = cpf;
     }
 
     // Usei split(" ") para pegar só o primeiro nome ao invés do nome completo,

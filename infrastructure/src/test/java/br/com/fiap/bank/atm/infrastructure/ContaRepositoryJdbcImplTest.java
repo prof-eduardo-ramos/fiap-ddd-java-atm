@@ -24,6 +24,7 @@ public class ContaRepositoryJdbcImplTest {
     }
 
     @Test
+<<<<<<< HEAD
     void deveSalvarEBuscarContaNoBancoDeDados() {
         assertTrue(true);
 
@@ -40,5 +41,19 @@ public class ContaRepositoryJdbcImplTest {
 
         // 3. Assert (Verificação)
         assertTrue(contaSalva.isPresent(), "A conta deveria ser encontrada no banco de dados!");
+=======
+    public void deveSalvaContaNoBancoDeDados() {
+        Cliente cliente = new Cliente("Teste nome cliente", "12345678901");
+        ContaAcesso contaAcesso = new ContaAcesso("1234");
+        Dinheiro saldo = new Dinheiro(new BigDecimal("1000.00"));
+        Conta conta = new ContaCorrente("1234", "56789", cliente, contaAcesso, saldo);
+
+        ContaRepositoryJdbcImpl repository = new ContaRepositoryJdbcImpl();
+        repository.adicionar(conta);
+
+        Optional<Conta> contaEncontrada = repository.buscarPorId(conta.getId());
+
+        assertTrue(contaEncontrada.isPresent());
+>>>>>>> 83c1325e2aa2142231e68628e45dd5bf286b76ab
     }
 }

@@ -1,9 +1,16 @@
 package br.com.fiap.bank.atm.infrastructure.repository;
 
+<<<<<<< HEAD
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+=======
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+>>>>>>> 83c1325e2aa2142231e68628e45dd5bf286b76ab
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
@@ -39,11 +46,17 @@ public class MovimentacaoRepository implements ATMRepository<Movimentacao> {
 
     public List<String> gerarRecibosSimples() {
         return movimentacoes.stream()
+<<<<<<< HEAD
+=======
+                // O map() extrai informações, navegando pelos Value Objects (Dinheiro)
+                .filter(movimentacao -> movimentacao.getTipo().equals(TipoMovimentacao.SAQUE))
+>>>>>>> 83c1325e2aa2142231e68628e45dd5bf286b76ab
                 .map(movimentacao -> "RECIBO | " + movimentacao.getTipo() + " - Valor: R$ "
                         + movimentacao.getValor().getValor())
                 .collect(Collectors.toList());
     }
 
+<<<<<<< HEAD
     public List<Movimentacao> obterSaques() {
         return movimentacoes.stream()
                 .filter(movimentacao -> TipoMovimentacao.SAQUE.equals(movimentacao.getTipo()))
@@ -55,6 +68,13 @@ public class MovimentacaoRepository implements ATMRepository<Movimentacao> {
     public Map<TipoMovimentacao, List<Movimentacao>> gerarExtratoAgrupado() {
         return movimentacoes.stream()
                 .collect(Collectors.groupingBy(Movimentacao::getTipo));
+=======
+    public BigDecimal calcularTotalSaques() {
+        return movimentacoes.stream()
+                .filter(movimentacao -> movimentacao.getTipo().equals(TipoMovimentacao.SAQUE))
+                .map(movimentacao -> movimentacao.getValor().getValor())
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+>>>>>>> 83c1325e2aa2142231e68628e45dd5bf286b76ab
     }
 
     @Override

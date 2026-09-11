@@ -21,6 +21,7 @@ public class ContaAcesso extends BaseEntity {
         return senha;
     }
 
+<<<<<<< HEAD
     public Integer getTentativas() {
         return tentativas;
     }
@@ -29,6 +30,8 @@ public class ContaAcesso extends BaseEntity {
         return bloqueado;
     }
 
+=======
+>>>>>>> 83c1325e2aa2142231e68628e45dd5bf286b76ab
     // Esse método valida a senha e já controla as tentativas automaticamente.
     // Se errar 3 vezes, bloqueia — parecido com o que acontece no banco real.
     public Boolean validarSenha(String senhaInformada) {

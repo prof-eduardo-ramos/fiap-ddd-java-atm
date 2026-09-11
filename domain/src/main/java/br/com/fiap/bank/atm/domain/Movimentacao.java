@@ -6,15 +6,29 @@ import java.time.LocalDateTime;
 // Toda vez que acontece algo na conta, um objeto dessa classe é criado e salvo.
 public class Movimentacao extends BaseEntity {
 
+    private Conta conta;
     private LocalDateTime dataHora;
     private TipoMovimentacao tipo;
     private Dinheiro valor;
 
-    public Movimentacao(LocalDateTime dataHora, Dinheiro valor, TipoMovimentacao tipo) {
+    public Movimentacao(Conta conta, LocalDateTime dataHora, Dinheiro valor, TipoMovimentacao tipo) {
         super();
+        this.conta = conta;
         this.dataHora = dataHora;
         this.valor = valor;
         this.tipo = tipo;
+    }
+
+    public Movimentacao(LocalDateTime dataHora, Dinheiro valor, TipoMovimentacao tipo) {
+        this(null, dataHora, valor, tipo);
+    }
+
+    public Conta getConta() {
+        return conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
     }
 
     public LocalDateTime getDataHora() {
