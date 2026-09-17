@@ -6,20 +6,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
+@Getter
 @Entity
 @Table(name = "tb_contas")
-@Getter
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_conta", discriminatorType = DiscriminatorType.STRING)
 public abstract class Conta extends BaseEntity {
 
     @Setter
@@ -39,13 +48,18 @@ public abstract class Conta extends BaseEntity {
     @Column(nullable = false)
     protected LocalDate dataAbertura;
 
+    @Embedded
+    protected Dinheiro saldo;
+
     @ManyToOne
     @JoinColumn(name = "id_cliente", nullable = false)
     protected Cliente cliente;
 
-    @Embedded
-    protected Dinheiro saldo;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_conta_acesso", nullable = false)
     protected ContaAcesso contaAcesso;
+
+    @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL)
     protected List<Movimentacao> movimentacoes;
 
     public Conta(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo, Double taxa) {

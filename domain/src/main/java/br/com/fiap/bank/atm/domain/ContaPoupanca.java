@@ -3,8 +3,9 @@ package br.com.fiap.bank.atm.domain;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-// Conta Poupança: não cobra taxa no saque, mas ganha rendimento de 1.1% ao mês.
-// Herda de Conta e implementa a regra de taxa de forma diferente da ContaCorrente.
+import jakarta.persistence.DiscriminatorValue;
+
+@DiscriminatorValue("CONTA_POUPANCA")
 public class ContaPoupanca extends Conta {
 
     // Percentual de rendimento mensal da poupança.

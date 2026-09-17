@@ -2,13 +2,35 @@ package br.com.fiap.bank.atm.domain;
 
 import java.time.LocalDateTime;
 
-// Representa cada registro do histórico da conta (extrato).
-// Toda vez que acontece algo na conta, um objeto dessa classe é criado e salvo.
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor
+@Entity
+@Table(name = "tb_movimentacoes")
 public class Movimentacao extends BaseEntity {
 
-    private Conta conta;
+    @Column(nullable = false)
     private LocalDateTime dataHora;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private TipoMovimentacao tipo;
+
+    @ManyToOne
+    @JoinColumn(name = "id_conta")
+    private Conta conta;
+
+    @Embedded
     private Dinheiro valor;
 
     public Movimentacao(Conta conta, LocalDateTime dataHora, Dinheiro valor, TipoMovimentacao tipo) {
@@ -23,30 +45,4 @@ public class Movimentacao extends BaseEntity {
         this(null, dataHora, valor, tipo);
     }
 
-    public Conta getConta() {
-        return conta;
-    }
-
-    public void setConta(Conta conta) {
-        this.conta = conta;
-    }
-
-    public LocalDateTime getDataHora() {
-        return dataHora;
-    }
-
-    public Dinheiro getValor() {
-        return valor;
-    }
-
-    public TipoMovimentacao getTipo() {
-        return tipo;
-    }
-
-    // A igualdade é pelo id herdado de BaseEntity,
-    // porque cada movimentação é única mesmo que tenha o mesmo valor e tipo.
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
 }
