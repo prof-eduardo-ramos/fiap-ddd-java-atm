@@ -1,8 +1,6 @@
 package br.com.fiap.bank.atm.domain;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
