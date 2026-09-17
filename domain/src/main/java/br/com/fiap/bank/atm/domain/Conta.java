@@ -5,24 +5,48 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
 @Getter
+@NoArgsConstructor 
+@Entity 
+@Table(name = "tb_contas")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn (name = "tipo_conta", discriminatorType = DiscriminatorType.STRING)
 public abstract class Conta extends BaseEntity {
 
-    @Setter 
+    @Setter
+    @Column(nullable = false, length = 10) 
     protected String numero;
 
     @Setter 
+    @Column(nullable = false, length = 4)
     protected String agencia;
     
-    protected Cliente cliente;
-    protected Dinheiro saldo;
+    @Column(nullable = false)
     protected Double taxa;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     protected StatusConta status;
+
+    @Column(nullable = false)
     protected LocalDate dataAbertura;
+
+    protected Dinheiro saldo;
+    protected Cliente cliente;
     protected ContaAcesso contaAcesso;
     protected List<Movimentacao> movimentacoes;
 
