@@ -9,7 +9,8 @@ import br.com.fiap.bank.atm.domain.ContaAcesso;
 import br.com.fiap.bank.atm.domain.Dinheiro;
 import br.com.fiap.bank.atm.domain.Movimentacao;
 import br.com.fiap.bank.atm.domain.interfaces.ContaRepository;
-import br.com.fiap.bank.atm.domain.interfaces.MovimentacaoRepository;
+import lombok.RequiredArgsConstructor;
+
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -18,15 +19,10 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ContaService {
 
         private final ContaRepository contaRepository;
-        private final MovimentacaoRepository movimentacaoRepository;
-
-        public ContaService(ContaRepository contaRepository, MovimentacaoRepository movimentacaoRepository) {
-                this.contaRepository = contaRepository;
-                this.movimentacaoRepository = movimentacaoRepository;
-        }
 
         public ContaResponseDTO consultarConta(UUID id) {
                 Conta conta = contaRepository.buscarPorId(id)
@@ -41,7 +37,7 @@ public class ContaService {
         }
 
         public List<MovimentacaoResponseDTO> consultarMovimentacoes(UUID id) {
-                List<Movimentacao> movimentacoes = movimentacaoRepository.buscarPorIdConta(id);
+                List<Movimentacao> movimentacoes = contaRepository.buscarPorId(id).get().getMovimentacoes();
 
                 return movimentacoes.stream()
                                 .map(movimentacao -> new MovimentacaoResponseDTO(
