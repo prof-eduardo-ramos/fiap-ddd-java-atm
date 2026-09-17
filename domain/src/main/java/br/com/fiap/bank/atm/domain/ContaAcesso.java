@@ -1,7 +1,8 @@
 package br.com.fiap.bank.atm.domain;
 
-// Essa classe cuida da parte de segurança da conta: senha e bloqueio.
-// Separei do modelo de Conta para não misturar regra financeira com autenticação.
+import lombok.Getter;
+
+@Getter 
 public class ContaAcesso extends BaseEntity {
 
     // Deixei como constante para ficar fácil de mudar no futuro se precisar.
@@ -15,10 +16,6 @@ public class ContaAcesso extends BaseEntity {
         this.senha = senha;
         this.tentativas = 0;
         this.bloqueado = Boolean.FALSE;
-    }
-
-    public String getSenha() {
-        return senha;
     }
 
     // Esse método valida a senha e já controla as tentativas automaticamente.
@@ -49,14 +46,5 @@ public class ContaAcesso extends BaseEntity {
         this.tentativas = 0;
         this.bloqueado = Boolean.FALSE;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-        ContaAcesso that = (ContaAcesso) obj;
-        return this.senha.equals(that.senha);
-    }
+    
 }
