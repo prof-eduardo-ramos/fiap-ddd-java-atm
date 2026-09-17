@@ -6,20 +6,45 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-// Classe abstrata que serve de base para ContaCorrente e ContaPoupanca.
-// Coloquei aqui tudo que é comum entre os dois tipos de conta para não repetir código.
-// Só o comportamento de taxa é diferente — cada subclasse implementa do seu jeito.
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@Entity
+@Table(name = "tb_contas")
+@Getter
 public abstract class Conta extends BaseEntity {
 
-    // Protected para que as subclasses consigam acessar diretamente,
-    // por exemplo ContaPoupanca precisa mexer no saldo para aplicar o rendimento.
+    @Setter
+    @Column(nullable = false, length = 10)
     protected String numero;
+
+    @Setter
+    @Column(nullable = false, length = 4)
     protected String agencia;
-    protected Cliente cliente;
-    protected Dinheiro saldo;
+
+    @Column(nullable = false)
     protected Double taxa;
+
+    @Column(nullable = false)
     protected StatusConta status;
+
+    @Column(nullable = false)
     protected LocalDate dataAbertura;
+
+    @ManyToOne
+    @JoinColumn(name = "id_cliente", nullable = false)
+    protected Cliente cliente;
+
+    @Embedded
+    protected Dinheiro saldo;
     protected ContaAcesso contaAcesso;
     protected List<Movimentacao> movimentacoes;
 
@@ -111,46 +136,4 @@ public abstract class Conta extends BaseEntity {
         movimentacoes.add(new Movimentacao(this, LocalDateTime.now(), valor, tipo));
     }
 
-    public Dinheiro getSaldo() {
-        return saldo;
-    }
-
-    public Double getTaxa() {
-        return taxa;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public LocalDate getDataAbertura() {
-        return dataAbertura;
-    }
-
-    public StatusConta getStatus() {
-        return status;
-    }
-
-    public ContaAcesso getContaAcesso() {
-        return contaAcesso;
-    }
-
-    // Retorna uma versão somente leitura da lista para que ninguém consiga
-    // adicionar ou remover movimentações por fora da classe.
-    public List<Movimentacao> getMovimentacoes() {
-        return Collections.unmodifiableList(movimentacoes);
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public String getAgencia() {
-        return agencia;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
 }

@@ -3,9 +3,13 @@ package br.com.fiap.bank.atm.domain;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-// Criei essa classe para representar valores monetários de forma segura.
-// Não usei double porque double tem erro de precisão (ex: 0.1 + 0.2 = 0.30000000000000004),
-// o que seria um problema grave num sistema bancário. BigDecimal resolve isso.
+import jakarta.persistence.Embeddable;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+
+@Getter
+@EqualsAndHashCode(of = "valor")
+@Embeddable
 public class Dinheiro {
 
     private BigDecimal valor;
@@ -51,28 +55,6 @@ public class Dinheiro {
 
     public Boolean menorQue(Dinheiro outro) {
         return this.valor.compareTo(outro.valor) < 0;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    // Uso compareTo no equals também porque BigDecimal considera 2.20 e 2.2
-    // diferentes,
-    // mas pra nós são o mesmo valor monetário.
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-        Dinheiro dinheiro = (Dinheiro) obj;
-        return this.valor.compareTo(dinheiro.valor) == 0;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.valor.hashCode();
     }
 
     // Formata o valor como moeda brasileira na hora de exibir no terminal.
