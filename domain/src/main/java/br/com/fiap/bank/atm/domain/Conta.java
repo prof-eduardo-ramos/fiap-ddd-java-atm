@@ -4,68 +4,45 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.DiscriminatorType;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @Getter
-@Entity
-@Table(name = "tb_contas")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo_conta", discriminatorType = DiscriminatorType.STRING)
-public abstract class Conta extends BaseEntity {
+public class Conta extends BaseEntity {
 
     @Setter
-    @Column(nullable = false, length = 10)
     protected String numero;
 
     @Setter
-    @Column(nullable = false, length = 4)
     protected String agencia;
-
-    @Column(nullable = false)
     protected Double taxa;
-
-    @Column(nullable = false)
     protected StatusConta status;
-
-    @Column(nullable = false)
+    protected TipoConta tipo;
     protected LocalDate dataAbertura;
-
-    @Embedded
     protected Dinheiro saldo;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id")
     protected Cliente cliente;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_conta_acesso", nullable = false)
     protected ContaAcesso contaAcesso;
+    protected final List<Movimentacao> movimentacoes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL)
-    protected List<Movimentacao> movimentacoes;
+    @Builder
+    private Conta(
+            UUID id,
+            LocalDate dataCriacao,
+            String numero,
+            String agencia,
+            Cliente cliente,
+            ContaAcesso contaAcesso,
+            Dinheiro saldo,
+            Double taxa,
+            StatusConta status,
+            TipoConta tipo,
+            LocalDate dataAbertura) {
 
-    public Conta(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo, Double taxa) {
-        super();
-        // Validações logo no construtor para garantir que nenhum objeto inválido seja
-        // criado.
-        // Se não fizer isso aqui, o NullPointerException aparece em outro lugar sem
-        // contexto.
+        super(id, dataCriacao);
+
         if (cliente == null) {
             throw new IllegalArgumentException("Cliente não pode ser nulo.");
         }
@@ -75,26 +52,40 @@ public abstract class Conta extends BaseEntity {
         if (saldo == null) {
             throw new IllegalArgumentException("Saldo não pode ser nulo.");
         }
+
         this.numero = numero;
         this.agencia = agencia;
         this.cliente = cliente;
         this.contaAcesso = contaAcesso;
         this.saldo = saldo;
         this.taxa = taxa;
-        this.status = StatusConta.ATIVA;
-        this.dataAbertura = LocalDate.now();
-        this.movimentacoes = new ArrayList<>();
+        this.tipo = tipo;
+        this.status = status;
+        this.dataAbertura = dataAbertura;
     }
 
-    // Método público chamado de fora. Ele verifica o status e depois delega
-    // para os métodos privados sacar() e aplicarRegraDeTaxa().
+    public Conta(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo, Double taxa,
+            TipoConta tipo) {
+        this(
+                null,
+                LocalDate.now(),
+                numero,
+                agencia,
+                cliente,
+                contaAcesso,
+                saldo,
+                taxa,
+                StatusConta.ATIVA,
+                tipo,
+                LocalDate.now());
+    }
+
     public void realizarSaque(Dinheiro valor) {
         if (this.status != StatusConta.ATIVA) {
             throw new IllegalStateException("Operação não permitida. A conta está " + this.status + ".");
         }
         sacar(valor);
-        // Chama o método abstrato — cada subclasse decide o que acontece aqui.
-        aplicarRegraDeTaxa();
+        registrarMovimentacao(this.getTipo().aplicarRegraDeTaxa(valor), this.getTipo().getTipoMovimentacao());
     }
 
     public void realizarDeposito(Dinheiro valor) {
@@ -105,7 +96,6 @@ public abstract class Conta extends BaseEntity {
     }
 
     public void bloquear() {
-        // Não faz sentido bloquear uma conta que já foi encerrada.
         if (this.status == StatusConta.ENCERRADA) {
             throw new IllegalStateException("Não é possível bloquear uma conta encerrada.");
         }
@@ -116,8 +106,6 @@ public abstract class Conta extends BaseEntity {
         this.status = StatusConta.ENCERRADA;
     }
 
-    // Privado porque ninguém de fora deve chamar diretamente — tem que passar pelo
-    // realizarDeposito.
     private void depositar(Dinheiro valor) {
         if (valor == null || valor.menorOuIgualQue(new Dinheiro("0"))) {
             throw new IllegalArgumentException("Valor de depósito deve ser maior que zero.");
@@ -126,7 +114,6 @@ public abstract class Conta extends BaseEntity {
         registrarMovimentacao(valor, TipoMovimentacao.DEPOSITO);
     }
 
-    // Privado pelo mesmo motivo do depositar.
     private void sacar(Dinheiro valor) {
         if (valor == null || valor.menorOuIgualQue(new Dinheiro("0"))) {
             throw new IllegalArgumentException("Valor de saque deve ser maior que zero.");
@@ -140,12 +127,12 @@ public abstract class Conta extends BaseEntity {
 
     // Método abstrato — força ContaCorrente e ContaPoupanca a implementarem
     // cada uma do seu jeito. Isso é polimorfismo na prática.
-    protected abstract void aplicarRegraDeTaxa();
+    // protected abstract void aplicarRegraDeTaxa();
 
     // Protected para que as subclasses também possam registrar movimentações,
     // como ContaPoupanca que registra o rendimento mensal.
     protected void registrarMovimentacao(Dinheiro valor, TipoMovimentacao tipo) {
-        movimentacoes.add(new Movimentacao(this, LocalDateTime.now(), valor, tipo));
+        movimentacoes.add(new Movimentacao(LocalDateTime.now(), valor, tipo));
     }
 
 }
