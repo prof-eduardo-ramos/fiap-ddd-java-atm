@@ -1,9 +1,21 @@
 package br.com.fiap.bank.atm.domain;
 
-// Representa o cliente do banco. Estende BaseEntity para já ter id e data de criação.
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor 
+@Entity
+@Table(name = "tb_clientes")
 public class Cliente extends BaseEntity {
 
+    @Column(nullable = false, length = 50)
     private String nomeCompleto;
+
+    @Column(nullable = false, length = 11)
     private String cpf;
 
     public Cliente(String nomeCompleto, String cpf) {
@@ -24,16 +36,4 @@ public class Cliente extends BaseEntity {
         return nomeCompleto.split(" ")[0];
     }
 
-    public String getNomeCompleto() {
-        return nomeCompleto;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
 }

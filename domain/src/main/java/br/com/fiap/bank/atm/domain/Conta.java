@@ -3,23 +3,50 @@ package br.com.fiap.bank.atm.domain;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-// Classe abstrata que serve de base para ContaCorrente e ContaPoupanca.
-// Coloquei aqui tudo que é comum entre os dois tipos de conta para não repetir código.
-// Só o comportamento de taxa é diferente — cada subclasse implementa do seu jeito.
+import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+
+@Getter
+@NoArgsConstructor 
+@Entity
+@Table(name = "tb_contas")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_conta", discriminatorType = DiscriminatorType.STRING) 
 public abstract class Conta extends BaseEntity {
 
-    // Protected para que as subclasses consigam acessar diretamente,
-    // por exemplo ContaPoupanca precisa mexer no saldo para aplicar o rendimento.
+    @Setter
+    @Column(nullable = false, length = 10)
     protected String numero;
+
+    @Setter
+    @Column(nullable = false, length = 4)
     protected String agencia;
-    protected Cliente cliente;
-    protected Dinheiro saldo;
+
+    @Column(nullable = false)
     protected Double taxa;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     protected StatusConta status;
+
+    @Column(nullable = false)
     protected LocalDate dataAbertura;
+
+    protected Dinheiro saldo;
+    protected Cliente cliente;
     protected ContaAcesso contaAcesso;
     protected List<Movimentacao> movimentacoes;
 
@@ -111,46 +138,4 @@ public abstract class Conta extends BaseEntity {
         movimentacoes.add(new Movimentacao(LocalDateTime.now(), valor, tipo));
     }
 
-    public Dinheiro getSaldo() {
-        return saldo;
-    }
-
-    public Double getTaxa() {
-        return taxa;
-    }
-
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public LocalDate getDataAbertura() {
-        return dataAbertura;
-    }
-
-    public StatusConta getStatus() {
-        return status;
-    }
-
-    public ContaAcesso getContaAcesso() {
-        return contaAcesso;
-    }
-
-    // Retorna uma versão somente leitura da lista para que ninguém consiga
-    // adicionar ou remover movimentações por fora da classe.
-    public List<Movimentacao> getMovimentacoes() {
-        return Collections.unmodifiableList(movimentacoes);
-    }
-
-    public String getNumero() {
-        return numero;
-    }
-
-    public String getAgencia() {
-        return agencia;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
 }

@@ -2,8 +2,13 @@ package br.com.fiap.bank.atm.domain;
 
 import java.math.BigDecimal;
 
-// Conta Corrente: cobra uma taxa de R$25 a cada saque realizado.
-// Herda de Conta e só precisa implementar a regra de taxa que é diferente da Poupança.
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor 
+@Entity
+@DiscriminatorValue("CONTA_CORRENTE") 
 public class ContaCorrente extends Conta {
 
     // Defini como constante para não ter número mágico solto no código.
@@ -39,8 +44,4 @@ public class ContaCorrente extends Conta {
         }
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
 }
