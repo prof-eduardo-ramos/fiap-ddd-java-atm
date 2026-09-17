@@ -7,8 +7,14 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.NoArgsConstructor;
 
+<<<<<<< HEAD
 @NoArgsConstructor
 @Entity
+=======
+
+@NoArgsConstructor 
+@Entity 
+>>>>>>> 1f84843 (2ESPG | 20260917 | Spring Data JPA)
 @DiscriminatorValue("CONTA_POUPANCA")
 public class ContaPoupanca extends Conta {
 

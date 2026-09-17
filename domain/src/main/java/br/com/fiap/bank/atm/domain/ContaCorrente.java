@@ -7,8 +7,13 @@ import jakarta.persistence.Entity;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
+<<<<<<< HEAD
 @DiscriminatorValue("CONTA_CORRENTE")
 @Entity
+=======
+@Entity 
+@DiscriminatorValue("CONTA_CORRENTE")
+>>>>>>> 1f84843 (2ESPG | 20260917 | Spring Data JPA)
 public class ContaCorrente extends Conta {
 
     // Defini como constante para não ter número mágico solto no código.
