@@ -24,12 +24,18 @@
             <version>1.0.0</version>
         </dependency>
 
-        <!-- Driver SQLite JDBC -->
+        <!-- Driver H2 -->
         <dependency>
-            <groupId>org.xerial</groupId>
-            <artifactId>sqlite-jdbc</artifactId>
-            <version>3.45.1.0</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
         </dependency>
+
+        <!-- Suporte e metadados para o console do H2 (Spring Boot 4+) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-h2console</artifactId>
+        </dependency>
+
 
     </dependencies>
 
