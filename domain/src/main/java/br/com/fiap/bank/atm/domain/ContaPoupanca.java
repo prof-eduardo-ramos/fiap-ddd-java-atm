@@ -3,13 +3,6 @@ package br.com.fiap.bank.atm.domain;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
-@Entity
-@DiscriminatorValue("CONTA_POUPANCA")
 public class ContaPoupanca extends Conta {
 
     // Percentual de rendimento mensal da poupança.

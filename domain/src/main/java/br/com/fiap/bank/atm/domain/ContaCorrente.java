@@ -2,13 +2,6 @@ package br.com.fiap.bank.atm.domain;
 
 import java.math.BigDecimal;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
-@DiscriminatorValue("CONTA_CORRENTE")
-@Entity
 public class ContaCorrente extends Conta {
 
     // Defini como constante para não ter número mágico solto no código.

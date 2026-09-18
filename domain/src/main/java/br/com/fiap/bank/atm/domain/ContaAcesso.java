@@ -1,30 +1,16 @@
 package br.com.fiap.bank.atm.domain;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-@Entity
-@Table(name = "tb_contas_acesso")
 public class ContaAcesso extends BaseEntity {
 
     // Deixei como constante para ficar fácil de mudar no futuro se precisar.
     public static final Integer MAXIMO_TENTATIVAS = 3;
-
-    @Column(nullable = false)
     private String senha;
-
-    @Column(nullable = false)
     private Integer tentativas;
-
-    @Column(nullable = false)
     private Boolean bloqueado;
 
     public ContaAcesso(String senha) {
@@ -61,15 +47,5 @@ public class ContaAcesso extends BaseEntity {
     public void resetarTentativas() {
         this.tentativas = 0;
         this.bloqueado = Boolean.FALSE;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null || getClass() != obj.getClass())
-            return false;
-        ContaAcesso that = (ContaAcesso) obj;
-        return this.senha.equals(that.senha);
     }
 }

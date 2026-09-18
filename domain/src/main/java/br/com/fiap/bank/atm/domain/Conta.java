@@ -5,59 +5,23 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.DiscriminatorType;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
 @Getter
-@Entity
-@Table(name = "tb_contas")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo_conta", discriminatorType = DiscriminatorType.STRING)
 public abstract class Conta extends BaseEntity {
 
     @Setter
-    @Column(nullable = false, length = 10)
     protected String numero;
 
     @Setter
-    @Column(nullable = false, length = 4)
     protected String agencia;
-
-    @Column(nullable = false)
     protected Double taxa;
-
-    @Column(nullable = false)
     protected StatusConta status;
-
-    @Column(nullable = false)
     protected LocalDate dataAbertura;
-
-    @Embedded
     protected Dinheiro saldo;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id")
     protected Cliente cliente;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "id_conta_acesso", nullable = false)
     protected ContaAcesso contaAcesso;
-
-    @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL)
     protected List<Movimentacao> movimentacoes;
 
     public Conta(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo, Double taxa) {

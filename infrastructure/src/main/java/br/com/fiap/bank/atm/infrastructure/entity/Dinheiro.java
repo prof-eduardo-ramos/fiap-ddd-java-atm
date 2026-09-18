@@ -1,8 +1,9 @@
-package br.com.fiap.bank.atm.domain;
+package br.com.fiap.bank.atm.infrastructure.entity;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @EqualsAndHashCode(of = "valor")
+@Embeddable
 public class Dinheiro {
 
     private BigDecimal valor;
