@@ -15,7 +15,6 @@ import br.com.fiap.bank.atm.domain.ContaAcesso;
 import br.com.fiap.bank.atm.domain.Dinheiro;
 import br.com.fiap.bank.atm.domain.Movimentacao;
 import br.com.fiap.bank.atm.domain.interfaces.ContaRepository;
-import br.com.fiap.bank.atm.domain.interfaces.MovimentacaoRepository;
 
 @Service
 public class ContaService {
