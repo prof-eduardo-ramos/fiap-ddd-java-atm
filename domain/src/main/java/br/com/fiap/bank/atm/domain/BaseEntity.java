@@ -17,16 +17,13 @@ import lombok.Getter;
 public abstract class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     @Column(nullable = false)
     private LocalDate dataCriacao;
 
     public BaseEntity() {
-        // UUID gera um identificador único automático, assim não preciso
-        // me preocupar em controlar IDs manualmente.
-        this.id = UUID.randomUUID();
         this.dataCriacao = LocalDate.now();
     }
 

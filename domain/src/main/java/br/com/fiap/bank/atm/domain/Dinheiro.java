@@ -6,8 +6,10 @@ import java.math.RoundingMode;
 import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
 @EqualsAndHashCode(of = "valor")
 @Embeddable
 public class Dinheiro {

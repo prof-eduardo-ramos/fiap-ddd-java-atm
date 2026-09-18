@@ -3,7 +3,6 @@ package br.com.fiap.bank.atm.domain;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -15,7 +14,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -51,8 +49,8 @@ public abstract class Conta extends BaseEntity {
     @Embedded
     protected Dinheiro saldo;
 
-    @ManyToOne
-    @JoinColumn(name = "id_cliente", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id")
     protected Cliente cliente;
 
     @OneToOne(cascade = CascadeType.ALL)

@@ -4,7 +4,6 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -29,13 +28,10 @@ public class ContaAcesso extends BaseEntity {
     private Boolean bloqueado;
 
     public ContaAcesso(String senha) {
+        super();
         this.senha = senha;
         this.tentativas = 0;
         this.bloqueado = Boolean.FALSE;
-    }
-
-    public String getSenha() {
-        return senha;
     }
 
     // Esse método valida a senha e já controla as tentativas automaticamente.

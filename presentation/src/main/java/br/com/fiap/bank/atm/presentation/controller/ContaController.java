@@ -43,6 +43,12 @@ public class ContaController {
         return ResponseEntity.ok(dto);
     }
 
+    @GetMapping
+    public ResponseEntity<List<ContaResponseDTO>> buscarTodasAsContas() {
+        List<ContaResponseDTO> contas = contaService.buscarTodas();
+        return ResponseEntity.ok(contas);
+    }
+
     @GetMapping("/{id}/movimentacoes")
     public ResponseEntity<List<MovimentacaoResponseDTO>> obterMovimentacoes(@PathVariable UUID id) {
         List<MovimentacaoResponseDTO> movimentacoes = contaService.consultarMovimentacoes(id);

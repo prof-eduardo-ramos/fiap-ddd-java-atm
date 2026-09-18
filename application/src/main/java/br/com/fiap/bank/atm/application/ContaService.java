@@ -36,6 +36,19 @@ public class ContaService {
                                 conta.getSaldo().getValor());
         }
 
+        public List<ContaResponseDTO> buscarTodas() {
+                List<Conta> contas = contaRepository.buscarTodas();
+                return contas.stream()
+                                .map(conta -> new ContaResponseDTO(
+                                                conta.getId(),
+                                                conta.getCliente().getNomeCompleto(),
+                                                conta.getCliente().getCpf(),
+                                                conta.getNumero(),
+                                                conta.getAgencia(),
+                                                conta.getSaldo().getValor()))
+                                .collect(Collectors.toList());
+        }
+
         public List<MovimentacaoResponseDTO> consultarMovimentacoes(UUID id) {
                 List<Movimentacao> movimentacoes = contaRepository.buscarPorId(id).get().getMovimentacoes();
 

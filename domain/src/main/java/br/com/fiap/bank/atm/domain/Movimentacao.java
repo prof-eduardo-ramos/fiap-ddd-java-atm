@@ -27,7 +27,6 @@ public class Movimentacao extends BaseEntity {
     private TipoMovimentacao tipo;
 
     @ManyToOne
-    @JoinColumn(name = "id_conta")
     private Conta conta;
 
     @Embedded

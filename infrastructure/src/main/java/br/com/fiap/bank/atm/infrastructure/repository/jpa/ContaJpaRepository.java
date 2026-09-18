@@ -20,7 +20,7 @@ public interface ContaJpaRepository extends ContaRepository, JpaRepository<Conta
 
     @Override
     default void adicionar(Conta conta) {
-        save(conta);
+        saveAndFlush(conta);
     }
 
     @Override
