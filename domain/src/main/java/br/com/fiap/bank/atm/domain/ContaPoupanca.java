@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import lombok.NoArgsConstructor;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 @NoArgsConstructor
 @Entity
 =======
@@ -15,6 +16,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor 
 @Entity 
 >>>>>>> 1f84843 (2ESPG | 20260917 | Spring Data JPA)
+=======
+@NoArgsConstructor
+@Entity
+>>>>>>> 117aab6 (feat: add JPA persistence annotations to domain entities and value objects)
 @DiscriminatorValue("CONTA_POUPANCA")
 public class ContaPoupanca extends Conta {
 
@@ -45,8 +50,4 @@ public class ContaPoupanca extends Conta {
         registrarMovimentacao(rendimento, TipoMovimentacao.RENDIMENTO);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
 }

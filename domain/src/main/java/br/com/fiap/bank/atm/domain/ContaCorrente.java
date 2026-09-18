@@ -8,10 +8,14 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 <<<<<<< HEAD
+<<<<<<< HEAD
 @DiscriminatorValue("CONTA_CORRENTE")
 @Entity
 =======
 @Entity 
+=======
+@Entity
+>>>>>>> 117aab6 (feat: add JPA persistence annotations to domain entities and value objects)
 @DiscriminatorValue("CONTA_CORRENTE")
 >>>>>>> 1f84843 (2ESPG | 20260917 | Spring Data JPA)
 public class ContaCorrente extends Conta {
@@ -20,8 +24,6 @@ public class ContaCorrente extends Conta {
     private static final Double TAXA_MANUTENCAO = 25.00;
 
     public ContaCorrente(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo) {
-        // Passa a taxa para a classe pai, assim ela fica registrada no atributo taxa da
-        // Conta.
         super(numero, agencia, cliente, contaAcesso, saldo, TAXA_MANUTENCAO);
     }
 
