@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
+
 import br.com.fiap.bank.atm.application.dto.ContaRequestDTO;
 import br.com.fiap.bank.atm.application.dto.ContaResponseDTO;
 import br.com.fiap.bank.atm.application.dto.MovimentacaoResponseDTO;
@@ -15,14 +17,13 @@ import br.com.fiap.bank.atm.domain.Movimentacao;
 import br.com.fiap.bank.atm.domain.interfaces.ContaRepository;
 import br.com.fiap.bank.atm.domain.interfaces.MovimentacaoRepository;
 
+@Service
 public class ContaService {
 
     private final ContaRepository contaRepository;
-    private final MovimentacaoRepository movimentacaoRepository;
 
-    public ContaService(ContaRepository contaRepository, MovimentacaoRepository movimentacaoRepository) {
+    public ContaService(ContaRepository contaRepository) {
         this.contaRepository = contaRepository;
-        this.movimentacaoRepository = movimentacaoRepository;
     }
 
     public ContaResponseDTO consultarConta(UUID id) {
@@ -57,7 +58,9 @@ public class ContaService {
     }
 
     public List<MovimentacaoResponseDTO> consultarMovimentacoes(UUID id) {
-        List<Movimentacao> movimentacoes = movimentacaoRepository.buscarPorIdConta(id);
+        List<Movimentacao> movimentacoes = contaRepository.buscarPorId(id)
+                .orElseThrow(() -> new IllegalArgumentException("Conta não encontrada."))
+                .getMovimentacoes();
 
         return movimentacoes.stream()
                 .map(m -> new MovimentacaoResponseDTO(m.getTipo().name(), m.getValor().getValor(), m.getDataHora()))
