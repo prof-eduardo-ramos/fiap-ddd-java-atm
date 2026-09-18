@@ -3,12 +3,13 @@ package br.com.fiap.bank.atm.domain;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import jakarta.persistence.Embeddable;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-
 @Getter
 @EqualsAndHashCode(of = "valor")
+@Embeddable
 public class Dinheiro {
 
     private BigDecimal valor;
