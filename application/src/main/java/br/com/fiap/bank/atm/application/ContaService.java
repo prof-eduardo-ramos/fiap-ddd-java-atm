@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.stereotype.Service;
+
 import br.com.fiap.bank.atm.application.dto.ContaRequestDTO;
 import br.com.fiap.bank.atm.application.dto.ContaResponseDTO;
 import br.com.fiap.bank.atm.application.dto.MovimentacaoResponseDTO;
@@ -15,6 +17,7 @@ import br.com.fiap.bank.atm.domain.Movimentacao;
 import br.com.fiap.bank.atm.domain.interfaces.ContaRepository;
 import br.com.fiap.bank.atm.domain.interfaces.MovimentacaoRepository;
 
+@Service
 public class ContaService {
 
     private final ContaRepository contaRepository;
