@@ -22,76 +22,76 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ContaService {
 
-    private final ContaRepository contaRepository;
+        private final ContaRepository contaRepository;
 
-    public ContaResponseDTO consultarConta(UUID id) {
-        Conta conta = contaRepository.buscarPorId(id)
-                .orElseThrow(() -> new IllegalArgumentException("Conta não encontrada."));
-        return new ContaResponseDTO(
-                conta.getId(),
-                conta.getCliente().getNomeCompleto(),
-                conta.getCliente().getCpf(),
-                conta.getNumero(),
-                conta.getAgencia(),
-                conta.getSaldo().valor());
-    }
+        public ContaResponseDTO consultarConta(UUID id) {
+                Conta conta = contaRepository.buscarPorId(id)
+                                .orElseThrow(() -> new IllegalArgumentException("Conta não encontrada."));
+                return new ContaResponseDTO(
+                                conta.getId(),
+                                conta.getCliente().getNomeCompleto(),
+                                conta.getCliente().getCpf(),
+                                conta.getNumero(),
+                                conta.getAgencia(),
+                                conta.getSaldo().valor());
+        }
 
-    public List<ContaResponseDTO> buscarTodas() {
-        List<Conta> contas = contaRepository.buscarTodas();
-        return contas.stream()
-                .map(conta -> new ContaResponseDTO(
-                        conta.getId(),
-                        conta.getCliente().getNomeCompleto(),
-                        conta.getCliente().getCpf(),
-                        conta.getNumero(),
-                        conta.getAgencia(),
-                        conta.getSaldo().valor()))
-                .collect(Collectors.toList());
-    }
+        public List<ContaResponseDTO> buscarTodas() {
+                List<Conta> contas = contaRepository.buscarTodas();
+                return contas.stream()
+                                .map(conta -> new ContaResponseDTO(
+                                                conta.getId(),
+                                                conta.getCliente().getNomeCompleto(),
+                                                conta.getCliente().getCpf(),
+                                                conta.getNumero(),
+                                                conta.getAgencia(),
+                                                conta.getSaldo().valor()))
+                                .collect(Collectors.toList());
+        }
 
-    public List<MovimentacaoResponseDTO> consultarMovimentacoes(UUID id) {
-        List<Movimentacao> movimentacoes = contaRepository.buscarPorId(id).get().getMovimentacoes();
+        public List<MovimentacaoResponseDTO> consultarMovimentacoes(UUID id) {
+                List<Movimentacao> movimentacoes = contaRepository.buscarPorId(id).get().getMovimentacoes();
 
-        return movimentacoes.stream()
-                .map(movimentacao -> new MovimentacaoResponseDTO(
-                        movimentacao.getTipo().name(),
-                        movimentacao.getValor().valor(),
-                        movimentacao.getDataHora()))
-                .sorted((m1, m2) -> m2.dataHora().compareTo(m1.dataHora()))
-                .collect(Collectors.toList());
+                return movimentacoes.stream()
+                                .map(movimentacao -> new MovimentacaoResponseDTO(
+                                                movimentacao.getTipo().name(),
+                                                movimentacao.getValor().valor(),
+                                                movimentacao.getDataHora()))
+                                .sorted((m1, m2) -> m2.dataHora().compareTo(m1.dataHora()))
+                                .collect(Collectors.toList());
 
-    }
+        }
 
-    public ContaResponseDTO cadastrarNovaConta(ContaRequestDTO dto) {
-        Cliente cliente = new Cliente(dto.nomeCliente(), dto.cpfCliente());
-        ContaAcesso contaAcesso = new ContaAcesso(dto.senha());
-        Conta novaConta = ContaFactory.getInstance().criarContaCorrente(dto.numero(), dto.agencia(), cliente,
-                contaAcesso, new Dinheiro(dto.saldoInicial()));
+        public ContaResponseDTO cadastrarNovaConta(ContaRequestDTO dto) {
+                Cliente cliente = new Cliente(dto.nomeCliente(), dto.cpfCliente());
+                ContaAcesso contaAcesso = new ContaAcesso(dto.senha());
+                Conta novaConta = ContaFactory.getInstance().criarContaCorrente(dto.numero(), dto.agencia(), cliente,
+                                contaAcesso, new Dinheiro(dto.saldoInicial()));
 
-        UUID contaId = contaRepository.adicionar(novaConta);
+                UUID contaId = contaRepository.adicionar(novaConta);
 
-        return new ContaResponseDTO(
-                contaId,
-                novaConta.getCliente().getNomeCompleto(),
-                novaConta.getCliente().getCpf(),
-                novaConta.getNumero(),
-                novaConta.getAgencia(),
-                novaConta.getSaldo().valor());
-    }
+                return new ContaResponseDTO(
+                                contaId,
+                                novaConta.getCliente().getNomeCompleto(),
+                                novaConta.getCliente().getCpf(),
+                                novaConta.getNumero(),
+                                novaConta.getAgencia(),
+                                novaConta.getSaldo().valor());
+        }
 
-    public void realizarSaque(UUID id, BigDecimal valor) {
-        Conta conta = contaRepository.buscarPorId(id)
-                .orElseThrow(() -> new IllegalArgumentException("Conta não encontrada."));
+        public void realizarSaque(UUID id, BigDecimal valor) {
+                Conta conta = contaRepository.buscarPorId(id)
+                                .orElseThrow(() -> new IllegalArgumentException("Conta não encontrada."));
 
-        conta.realizarSaque(new Dinheiro(valor));
-        contaRepository.atualizar(conta);
-    }
+                conta.realizarSaque(new Dinheiro(valor));
+                contaRepository.atualizar(conta);
+        }
 
-    public void realizarDeposito(UUID id, BigDecimal valor) {
-        Conta conta = contaRepository.buscarPorId(id)
-                .orElseThrow(() -> new IllegalArgumentException("Conta não encontrada."));
+        public void realizarDeposito(UUID id, BigDecimal valor) {
+                Conta conta = contaRepository.buscarPorId(id)
+                                .orElseThrow(() -> new IllegalArgumentException("Conta não encontrada."));
 
-        conta.realizarDeposito(new Dinheiro(valor));
-        contaRepository.atualizar(conta);
-    }
+                conta.realizarDeposito(new Dinheiro(valor));
+                contaRepository.atualizar(conta);
+        }
 }
