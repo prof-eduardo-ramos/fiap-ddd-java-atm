@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @NoArgsConstructor
-// @AllArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_clientes")
 public class Cliente extends BaseEntity {
@@ -22,20 +22,6 @@ public class Cliente extends BaseEntity {
 
     @Column(nullable = false)
     private String cpf;
-
-    public Cliente(String nomeCompleto, String cpf) {
-        super();
-        if (nomeCompleto == null || nomeCompleto.isBlank()) {
-            throw new IllegalArgumentException("Nome completo é obrigatório.");
-        }
-
-        if (cpf == null || cpf.isBlank()) {
-            throw new IllegalArgumentException("CPF é obrigatório.");
-        }
-
-        this.nomeCompleto = nomeCompleto;
-        this.cpf = cpf;
-    }
 
     // Usei split(" ") para pegar só o primeiro nome ao invés do nome completo,
     // fica mais amigável na hora de cumprimentar o usuário no terminal.
