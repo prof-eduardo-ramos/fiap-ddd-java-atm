@@ -1,27 +1,24 @@
 package br.com.fiap.bank.atm.domain;
 
 import java.math.BigDecimal;
+
+import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-@Getter 
-@EqualsAndHashCode (of = "valor")
-@AllArgsConstructor 
+@Getter
+@EqualsAndHashCode(of = "valor")
+@AllArgsConstructor
+@Embeddable
 public class Dinheiro {
 
     private BigDecimal valor;
 
-    // Construtor extra que aceita String para facilitar na hora de criar valores no
-    // código,
-    // como new Dinheiro("1000.00"), sem precisar criar um BigDecimal na mão.
     public Dinheiro(String valor) {
         this(new BigDecimal(valor));
     }
 
-    // Os métodos abaixo retornam um objeto Dinheiro novo em vez de alterar o atual.
-    // Aprendi que isso se chama imutabilidade — evita bugs porque o valor original
-    // nunca muda.
     public Dinheiro adicionar(Dinheiro outro) {
         return new Dinheiro(this.valor.add(outro.valor));
     }

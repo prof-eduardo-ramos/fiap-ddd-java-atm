@@ -8,6 +8,7 @@ import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.DiscriminatorType;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -18,23 +19,22 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Getter
-@NoArgsConstructor 
-@Entity 
+@NoArgsConstructor
+@Entity
 @Table(name = "tb_contas")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn (name = "tipo_conta", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorColumn(name = "tipo_conta", discriminatorType = DiscriminatorType.STRING)
 public abstract class Conta extends BaseEntity {
 
     @Setter
-    @Column(nullable = false, length = 10) 
+    @Column(nullable = false, length = 10)
     protected String numero;
 
-    @Setter 
+    @Setter
     @Column(nullable = false, length = 4)
     protected String agencia;
-    
+
     @Column(nullable = false)
     protected Double taxa;
 
@@ -45,7 +45,9 @@ public abstract class Conta extends BaseEntity {
     @Column(nullable = false)
     protected LocalDate dataAbertura;
 
+    @Embedded
     protected Dinheiro saldo;
+
     protected Cliente cliente;
     protected ContaAcesso contaAcesso;
     protected List<Movimentacao> movimentacoes;

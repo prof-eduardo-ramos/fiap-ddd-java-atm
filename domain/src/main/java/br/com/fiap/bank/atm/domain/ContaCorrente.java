@@ -7,7 +7,7 @@ import jakarta.persistence.Entity;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-@Entity 
+@Entity
 @DiscriminatorValue("CONTA_CORRENTE")
 public class ContaCorrente extends Conta {
 
@@ -15,8 +15,6 @@ public class ContaCorrente extends Conta {
     private static final Double TAXA_MANUTENCAO = 25.00;
 
     public ContaCorrente(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo) {
-        // Passa a taxa para a classe pai, assim ela fica registrada no atributo taxa da
-        // Conta.
         super(numero, agencia, cliente, contaAcesso, saldo, TAXA_MANUTENCAO);
     }
 

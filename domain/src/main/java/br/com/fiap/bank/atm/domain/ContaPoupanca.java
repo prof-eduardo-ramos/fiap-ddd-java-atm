@@ -7,9 +7,8 @@ import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.NoArgsConstructor;
 
-
-@NoArgsConstructor 
-@Entity 
+@NoArgsConstructor
+@Entity
 @DiscriminatorValue("CONTA_POUPANCA")
 public class ContaPoupanca extends Conta {
 
@@ -40,8 +39,4 @@ public class ContaPoupanca extends Conta {
         registrarMovimentacao(rendimento, TipoMovimentacao.RENDIMENTO);
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
 }
