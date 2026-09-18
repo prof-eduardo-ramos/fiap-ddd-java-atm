@@ -28,7 +28,7 @@ public class Movimentacao extends BaseEntity {
     private TipoMovimentacao tipo;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_conta", nullable = false)
+    @JoinColumn(name = "conta_id", nullable = false)
     private Conta conta;
 
     @Embedded
