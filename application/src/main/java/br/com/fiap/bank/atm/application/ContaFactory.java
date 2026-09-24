@@ -30,7 +30,7 @@ public class ContaFactory {
     // não precise depender do tipo específico — só usa a interface de Conta.
     public Conta criarContaCorrente(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso,
             Dinheiro saldo) {
-        return new ContaCorrente(numero, agencia, cliente, contaAcesso, saldo);
+        return new Conta(numero, agencia, cliente, contaAcesso, saldo);
     }
 
     public Conta criarContaPoupanca(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso,
