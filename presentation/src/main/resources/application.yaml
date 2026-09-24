@@ -1,11 +1,23 @@
 spring:
     application:
         name: fiap-ddd-java-atm-presentation
+
     datasource:
-        url: jdbc:sqlite:fiapbank.db
-        driver-class-name: org.sqlite.JDBC
+      url: jdbc:h2:mem:fiapbankdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+      driver-class-name: org.h2.Driver
+      username: sa
+      password: admin
+
+    h2:
+      console:
+        enabled: true
+        path: /h2-console
+
     jpa:
-        # database-platform: org.hibernate.dialect.SQLiteDialect
+      database-platform: org.hibernate.dialect.H2Dialect
+      hibernate:
+        ddl-auto: update
+      show-sql: true
+      properties:
         hibernate:
-            ddl-auto: update # O Hibernate criará as tabelas automaticamente!
-        show-sql: true     # Imprime os comandos SQL no console
+          format_sql: true
