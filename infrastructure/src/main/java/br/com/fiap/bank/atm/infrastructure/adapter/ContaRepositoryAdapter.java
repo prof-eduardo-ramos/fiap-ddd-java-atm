@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import br.com.fiap.bank.atm.domain.Conta;
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Component
+@Primary
 public class ContaRepositoryAdapter implements ContaRepository {
 
     private final ContaJpaRepository repository;

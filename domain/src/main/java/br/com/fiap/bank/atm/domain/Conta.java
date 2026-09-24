@@ -9,7 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter
-public abstract class Conta extends BaseEntity {
+public class Conta extends BaseEntity {
 
     @Setter
     protected String numero;
@@ -18,6 +18,7 @@ public abstract class Conta extends BaseEntity {
     protected String agencia;
     protected Double taxa;
     protected StatusConta status;
+    protected TipoConta tipo;
     protected LocalDate dataAbertura;
     protected Dinheiro saldo;
     protected Cliente cliente;
@@ -58,7 +59,7 @@ public abstract class Conta extends BaseEntity {
         }
         sacar(valor);
         // Chama o método abstrato — cada subclasse decide o que acontece aqui.
-        aplicarRegraDeTaxa();
+        // aplicarRegraDeTaxa();
     }
 
     public void realizarDeposito(Dinheiro valor) {
@@ -104,7 +105,7 @@ public abstract class Conta extends BaseEntity {
 
     // Método abstrato — força ContaCorrente e ContaPoupanca a implementarem
     // cada uma do seu jeito. Isso é polimorfismo na prática.
-    protected abstract void aplicarRegraDeTaxa();
+    // protected abstract void aplicarRegraDeTaxa();
 
     // Protected para que as subclasses também possam registrar movimentações,
     // como ContaPoupanca que registra o rendimento mensal.

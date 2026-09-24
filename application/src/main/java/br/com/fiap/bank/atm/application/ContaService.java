@@ -33,7 +33,7 @@ public class ContaService {
                                 conta.getCliente().getCpf(),
                                 conta.getNumero(),
                                 conta.getAgencia(),
-                                conta.getSaldo().getValor());
+                                conta.getSaldo().valor());
         }
 
         public List<ContaResponseDTO> buscarTodas() {
@@ -45,7 +45,7 @@ public class ContaService {
                                                 conta.getCliente().getCpf(),
                                                 conta.getNumero(),
                                                 conta.getAgencia(),
-                                                conta.getSaldo().getValor()))
+                                                conta.getSaldo().valor()))
                                 .collect(Collectors.toList());
         }
 
@@ -55,7 +55,7 @@ public class ContaService {
                 return movimentacoes.stream()
                                 .map(movimentacao -> new MovimentacaoResponseDTO(
                                                 movimentacao.getTipo().name(),
-                                                movimentacao.getValor().getValor(),
+                                                movimentacao.getValor().valor(),
                                                 movimentacao.getDataHora()))
                                 .collect(Collectors.toList());
 
@@ -75,7 +75,7 @@ public class ContaService {
                                 novaConta.getCliente().getCpf(),
                                 novaConta.getNumero(),
                                 novaConta.getAgencia(),
-                                novaConta.getSaldo().getValor());
+                                novaConta.getSaldo().valor());
         }
 
         public void realizarSaque(UUID id, BigDecimal valor) {

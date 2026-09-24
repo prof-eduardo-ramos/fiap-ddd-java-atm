@@ -6,11 +6,7 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.DiscriminatorColumn;
-import jakarta.persistence.DiscriminatorType;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Inheritance;
-import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -26,9 +22,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "tb_contas")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "tipo_conta", discriminatorType = DiscriminatorType.STRING)
-public abstract class ContaEntity extends BaseEntity {
+public class ContaEntity extends BaseEntity {
 
     @Setter
     @Column(nullable = false, length = 10)
@@ -43,6 +37,9 @@ public abstract class ContaEntity extends BaseEntity {
 
     @Column(nullable = false)
     protected StatusContaEnum status;
+
+    @Column(nullable = false)
+    protected TipoContaEnum tipo;
 
     @Column(nullable = false)
     protected LocalDate dataAbertura;

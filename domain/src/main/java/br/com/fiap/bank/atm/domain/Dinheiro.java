@@ -3,16 +3,7 @@ package br.com.fiap.bank.atm.domain;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-@Getter
-@NoArgsConstructor
-@EqualsAndHashCode(of = "valor")
-public class Dinheiro {
-
-    private BigDecimal valor;
+public record Dinheiro(BigDecimal valor) {
 
     public Dinheiro(BigDecimal valor) {
         // setScale(2) garante que o valor sempre tenha duas casas decimais.
@@ -55,6 +46,10 @@ public class Dinheiro {
 
     public Boolean menorQue(Dinheiro outro) {
         return this.valor.compareTo(outro.valor) < 0;
+    }
+
+    public Dinheiro multiplicar(Dinheiro fator) {
+        return new Dinheiro(this.valor.multiply(fator.valor));
     }
 
     // Formata o valor como moeda brasileira na hora de exibir no terminal.

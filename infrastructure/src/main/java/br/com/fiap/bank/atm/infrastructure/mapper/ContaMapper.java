@@ -9,48 +9,46 @@ import br.com.fiap.bank.atm.domain.Cliente;
 import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.ContaAcesso;
 import br.com.fiap.bank.atm.domain.ContaCorrente;
+import br.com.fiap.bank.atm.domain.ContaPoupanca;
 import br.com.fiap.bank.atm.domain.Dinheiro;
 import br.com.fiap.bank.atm.domain.Movimentacao;
 import br.com.fiap.bank.atm.infrastructure.entity.ClienteEntity;
 import br.com.fiap.bank.atm.infrastructure.entity.ContaAcessoEntity;
-import br.com.fiap.bank.atm.infrastructure.entity.ContaCorrenteEntity;
 import br.com.fiap.bank.atm.infrastructure.entity.ContaEntity;
 import br.com.fiap.bank.atm.infrastructure.entity.MovimentacaoEntity;
 
 @Mapper(componentModel = "spring")
-public abstract class ContaMapper {
+public interface ContaMapper {
 
     @Mapping(target = "saldo", source = "saldo.valor")
-    public abstract ContaCorrenteEntity toEntity(ContaCorrente conta);
+    ContaEntity toEntity(Conta conta);
 
-    public Conta toDomain(ContaEntity contaEntity) {
-        if (contaEntity instanceof ContaCorrenteEntity) {
-            return toDomain((ContaCorrenteEntity) contaEntity);
+    Conta toDomain(ContaEntity contaEntity);
+
+    ContaAcesso toDomain(ContaAcessoEntity contaAcessoEntity);
+
+    Cliente toDomain(ClienteEntity clienteEntity);
+
+    ClienteEntity toEntity(Cliente cliente);
+
+    ContaAcessoEntity toEntity(ContaAcesso contaAcesso);
+
+    MovimentacaoEntity toEntity(Movimentacao movimentacao);
+
+    Movimentacao toDomain(MovimentacaoEntity movimentacaoEntity);
+
+    default Dinheiro map(BigDecimal valor) {
+        if (valor == null) {
+            return new Dinheiro(BigDecimal.ZERO);
         }
-        return null;
+        return new Dinheiro(valor);
     }
 
-    public ContaEntity toEntity(Conta conta) {
-        if (conta instanceof ContaCorrente) {
-            return toEntity((ContaCorrente) conta);
+    default BigDecimal map(Dinheiro dinheiro) {
+        if (dinheiro == null) {
+            return BigDecimal.ZERO;
         }
-        return null;
+        return dinheiro.valor();
     }
-
-    public abstract ContaAcesso toDomain(ContaAcessoEntity contaAcessoEntity);
-
-    public abstract Cliente toDomain(ClienteEntity clienteEntity);
-
-    public abstract ClienteEntity toEntity(Cliente cliente);
-
-    public abstract ContaAcessoEntity toEntity(ContaAcesso contaAcesso);
-
-    public abstract MovimentacaoEntity toEntity(Movimentacao movimentacao);
-
-    public abstract Movimentacao toDomain(MovimentacaoEntity movimentacaoEntity);
-
-    public abstract Dinheiro map(BigDecimal valor);
-
-    protected abstract ContaCorrente toDomain(ContaCorrenteEntity contaCorrenteEntity);
 
 }

@@ -1,10 +1,8 @@
 package br.com.fiap.bank.atm.domain;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
 public class ContaAcesso extends BaseEntity {
 
     // Deixei como constante para ficar fácil de mudar no futuro se precisar.

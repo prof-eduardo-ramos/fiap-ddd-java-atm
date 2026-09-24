@@ -14,7 +14,7 @@ public class ContaPoupanca extends Conta {
 
     // Poupança não tem taxa de saque, então deixei vazio de propósito.
     // Precisei sobrescrever porque o método é abstrato em Conta.
-    @Override
+    // @Override
     protected void aplicarRegraDeTaxa() {
         // sem taxa no saque
     }
@@ -25,9 +25,8 @@ public class ContaPoupanca extends Conta {
         if (this.status != StatusConta.ATIVA) {
             throw new IllegalStateException("Operação não permitida. A conta está " + this.status + ".");
         }
-        BigDecimal fator = BigDecimal.valueOf(RENDIMENTO_MENSAL / 100.0);
-        Dinheiro rendimento = new Dinheiro(
-                this.saldo.getValor().multiply(fator).setScale(2, RoundingMode.HALF_UP));
+        Dinheiro fator = new Dinheiro(BigDecimal.valueOf(RENDIMENTO_MENSAL / 100.0));
+        Dinheiro rendimento = this.saldo.multiplicar(fator);
         this.saldo = this.saldo.adicionar(rendimento);
         registrarMovimentacao(rendimento, TipoMovimentacao.RENDIMENTO);
     }

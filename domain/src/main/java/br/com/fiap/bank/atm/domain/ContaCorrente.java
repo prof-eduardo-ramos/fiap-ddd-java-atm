@@ -16,7 +16,7 @@ public class ContaCorrente extends Conta {
     // Esse método é chamado automaticamente após cada saque (a lógica está em
     // Conta.realizarSaque).
     // Só desconta a taxa se o saldo for suficiente para cobri-la.
-    @Override
+    // @Override
     protected void aplicarRegraDeTaxa() {
         Dinheiro taxaSaque = new Dinheiro(BigDecimal.valueOf(TAXA_MANUTENCAO));
         if (this.saldo.maiorOuIgualQue(taxaSaque)) {
