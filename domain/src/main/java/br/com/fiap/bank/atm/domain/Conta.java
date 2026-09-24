@@ -25,7 +25,7 @@ public class Conta extends BaseEntity {
     protected ContaAcesso contaAcesso;
     protected List<Movimentacao> movimentacoes;
 
-    public Conta(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo, Double taxa) {
+    public Conta(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo, Double taxa, TipoConta tipo) {
         super();
         // Validações logo no construtor para garantir que nenhum objeto inválido seja
         // criado.
@@ -46,6 +46,7 @@ public class Conta extends BaseEntity {
         this.contaAcesso = contaAcesso;
         this.saldo = saldo;
         this.taxa = taxa;
+        this.tipo = tipo;
         this.status = StatusConta.ATIVA;
         this.dataAbertura = LocalDate.now();
         this.movimentacoes = new ArrayList<>();
