@@ -1,35 +1,13 @@
 package br.com.fiap.bank.atm.domain;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
-import jakarta.persistence.Embeddable;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
+public record Dinheiro(BigDecimal valor) {
 
-@Getter
-@EqualsAndHashCode(of = "valor")
-@Embeddable
-public class Dinheiro {
-
-    private BigDecimal valor;
-
-    public Dinheiro(BigDecimal valor) {
-        // setScale(2) garante que o valor sempre tenha duas casas decimais.
-        // HALF_UP é o arredondamento padrão (ex: 2.225 vira 2.23).
-        this.valor = valor.setScale(2, RoundingMode.HALF_UP);
-    }
-
-    // Construtor extra que aceita String para facilitar na hora de criar valores no
-    // código,
-    // como new Dinheiro("1000.00"), sem precisar criar um BigDecimal na mão.
     public Dinheiro(String valor) {
         this(new BigDecimal(valor));
     }
 
-    // Os métodos abaixo retornam um objeto Dinheiro novo em vez de alterar o atual.
-    // Aprendi que isso se chama imutabilidade — evita bugs porque o valor original
-    // nunca muda.
     public Dinheiro adicionar(Dinheiro outro) {
         return new Dinheiro(this.valor.add(outro.valor));
     }

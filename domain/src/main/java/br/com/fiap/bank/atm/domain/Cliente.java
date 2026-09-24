@@ -1,21 +1,11 @@
 package br.com.fiap.bank.atm.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor 
-@Entity
-@Table(name = "tb_clientes")
 public class Cliente extends BaseEntity {
 
-    @Column(nullable = false, length = 50)
     private String nomeCompleto;
-
-    @Column(nullable = false, length = 11)
     private String cpf;
 
     public Cliente(String nomeCompleto, String cpf) {

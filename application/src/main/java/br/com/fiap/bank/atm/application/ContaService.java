@@ -34,7 +34,7 @@ public class ContaService {
                 conta.getCliente().getCpf(),
                 conta.getNumero(),
                 conta.getAgencia(),
-                conta.getSaldo().getValor());
+                conta.getSaldo().valor());
 
     }
 
@@ -52,7 +52,7 @@ public class ContaService {
                 novaConta.getCliente().getCpf(),
                 novaConta.getNumero(),
                 novaConta.getAgencia(),
-                novaConta.getSaldo().getValor());
+                novaConta.getSaldo().valor());
 
     }
 
@@ -62,7 +62,7 @@ public class ContaService {
                 .getMovimentacoes();
 
         return movimentacoes.stream()
-                .map(m -> new MovimentacaoResponseDTO(m.getTipo().name(), m.getValor().getValor(), m.getDataHora()))
+                .map(m -> new MovimentacaoResponseDTO(m.getTipo().name(), m.getValor().valor(), m.getDataHora()))
                 .toList();
     }
 
