@@ -2,7 +2,6 @@ package br.com.fiap.bank.atm.domain;
 
 import java.math.BigDecimal;
 
-import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -10,7 +9,6 @@ import lombok.Getter;
 @Getter
 @EqualsAndHashCode(of = "valor")
 @AllArgsConstructor
-@Embeddable
 public class Dinheiro {
 
     private BigDecimal valor;
