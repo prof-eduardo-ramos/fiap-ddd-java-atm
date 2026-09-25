@@ -41,10 +41,10 @@ public class ContaService {
     public ContaResponseDTO cadastrarNovaConta(ContaRequestDTO dto) {
         Cliente cliente = new Cliente(dto.nomeCliente(), dto.cpfCliente());
         ContaAcesso contaAcesso = new ContaAcesso(dto.senha());
-        Conta novaConta = ContaFactory.getInstance().criarContaCorrente(dto.numero(), dto.agencia(), cliente,
+        Conta conta = ContaFactory.getInstance().criarContaCorrente(dto.numero(), dto.agencia(), cliente,
                 contaAcesso, new Dinheiro(dto.saldoInicial()));
 
-        contaRepository.adicionar(novaConta);
+        Conta novaConta = contaRepository.adicionar(conta);
 
         return new ContaResponseDTO(
                 novaConta.getId(),

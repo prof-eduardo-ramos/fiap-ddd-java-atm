@@ -15,9 +15,6 @@ public abstract class BaseEntity {
     protected LocalDate dataCriacao;
 
     public BaseEntity() {
-        // UUID gera um identificador único automático, assim não preciso
-        // me preocupar em controlar IDs manualmente.
-        this.id = UUID.randomUUID();
         this.dataCriacao = LocalDate.now();
     }
 

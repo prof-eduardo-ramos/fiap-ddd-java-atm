@@ -8,9 +8,9 @@ import br.com.fiap.bank.atm.domain.BaseEntity;
 
 public interface ATMRepository<T extends BaseEntity> {
 
-    void adicionar(T entidade);
+    T adicionar(T entidade);
 
-    void atualizar(T entidade);
+    T atualizar(T entidade);
 
     Optional<T> buscarPorId(UUID id);
 
