@@ -15,6 +15,7 @@ public abstract class BaseEntity {
     protected LocalDate dataCriacao;
 
     public BaseEntity() {
+        // this.id = UUID.randomUUID();
         this.dataCriacao = LocalDate.now();
     }
 
