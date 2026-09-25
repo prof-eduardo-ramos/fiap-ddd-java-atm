@@ -7,6 +7,8 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
@@ -24,20 +26,20 @@ import lombok.Setter;
 @Table(name = "tb_contas")
 public class ContaEntity extends BaseEntity {
 
-    @Setter
     @Column(nullable = false, length = 10)
     protected String numero;
 
-    @Setter
     @Column(nullable = false, length = 4)
     protected String agencia;
 
     @Column(nullable = false)
     protected Double taxa;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     protected StatusContaEnum status;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     protected TipoContaEnum tipo;
 

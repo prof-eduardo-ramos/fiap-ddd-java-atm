@@ -25,12 +25,9 @@ public class Conta extends BaseEntity {
     protected ContaAcesso contaAcesso;
     protected List<Movimentacao> movimentacoes;
 
-    public Conta(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo, Double taxa) {
+    public Conta(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo, Double taxa,
+            TipoConta tipo) {
         super();
-        // Validações logo no construtor para garantir que nenhum objeto inválido seja
-        // criado.
-        // Se não fizer isso aqui, o NullPointerException aparece em outro lugar sem
-        // contexto.
         if (cliente == null) {
             throw new IllegalArgumentException("Cliente não pode ser nulo.");
         }
@@ -47,6 +44,7 @@ public class Conta extends BaseEntity {
         this.saldo = saldo;
         this.taxa = taxa;
         this.status = StatusConta.ATIVA;
+        this.tipo = tipo;
         this.dataAbertura = LocalDate.now();
         this.movimentacoes = new ArrayList<>();
     }
