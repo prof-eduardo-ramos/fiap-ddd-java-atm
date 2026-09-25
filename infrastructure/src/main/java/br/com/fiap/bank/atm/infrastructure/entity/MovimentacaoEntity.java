@@ -11,16 +11,18 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
+// @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "tb_movimentacoes")
+@Builder
 public class MovimentacaoEntity extends BaseEntity {
 
     @Column(nullable = false)

@@ -1,5 +1,6 @@
 package br.com.fiap.bank.atm.domain;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import lombok.Builder;
@@ -15,15 +16,20 @@ public class ContaAcesso extends BaseEntity {
     private Boolean bloqueado;
 
     @Builder
-    private ContaAcesso(UUID id, String senha) {
-        super(id);
+    private ContaAcesso(
+            UUID id,
+            LocalDate dataCriacao,
+            String senha,
+            Integer tentativas,
+            Boolean bloqueado) {
+        super(id, dataCriacao);
         this.senha = senha;
-        this.tentativas = 0;
-        this.bloqueado = Boolean.FALSE;
+        this.tentativas = tentativas;
+        this.bloqueado = bloqueado;
     }
 
     public ContaAcesso(String senha) {
-        this(UUID.randomUUID(), senha);
+        this(null, LocalDate.now(), senha, 0, Boolean.FALSE);
     }
 
     // Esse método valida a senha e já controla as tentativas automaticamente.

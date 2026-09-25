@@ -27,15 +27,23 @@ public class Conta extends BaseEntity {
     protected ContaAcesso contaAcesso;
     protected List<Movimentacao> movimentacoes;
 
-    public Conta(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo, Double taxa,
-            TipoConta tipo) {
-        this(UUID.randomUUID(), numero, agencia, cliente, contaAcesso, saldo, taxa, tipo);
-    }
-
     @Builder
-    private Conta(UUID id, String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo,
-            Double taxa, TipoConta tipo) {
-        super(id);
+    private Conta(
+            UUID id,
+            LocalDate dataCriacao,
+            String numero,
+            String agencia,
+            Cliente cliente,
+            ContaAcesso contaAcesso,
+            Dinheiro saldo,
+            Double taxa,
+            StatusConta status,
+            TipoConta tipo,
+            LocalDate dataAbertura,
+            List<Movimentacao> movimentacoes) {
+
+        super(id, dataCriacao);
+
         if (cliente == null) {
             throw new IllegalArgumentException("Cliente não pode ser nulo.");
         }
@@ -45,20 +53,36 @@ public class Conta extends BaseEntity {
         if (saldo == null) {
             throw new IllegalArgumentException("Saldo não pode ser nulo.");
         }
+
         this.numero = numero;
         this.agencia = agencia;
         this.cliente = cliente;
         this.contaAcesso = contaAcesso;
         this.saldo = saldo;
         this.taxa = taxa;
-        this.status = StatusConta.ATIVA;
         this.tipo = tipo;
-        this.dataAbertura = LocalDate.now();
-        this.movimentacoes = new ArrayList<>();
+        this.status = status;
+        this.dataAbertura = dataAbertura;
+        this.movimentacoes = movimentacoes;
     }
 
-    // Método público chamado de fora. Ele verifica o status e depois delega
-    // para os métodos privados sacar() e aplicarRegraDeTaxa().
+    public Conta(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo, Double taxa,
+            TipoConta tipo) {
+        this(
+                null,
+                LocalDate.now(),
+                numero,
+                agencia,
+                cliente,
+                contaAcesso,
+                saldo,
+                taxa,
+                StatusConta.ATIVA,
+                tipo,
+                LocalDate.now(),
+                new ArrayList<>());
+    }
+
     public void realizarSaque(Dinheiro valor) {
         if (this.status != StatusConta.ATIVA) {
             throw new IllegalStateException("Operação não permitida. A conta está " + this.status + ".");
@@ -76,7 +100,6 @@ public class Conta extends BaseEntity {
     }
 
     public void bloquear() {
-        // Não faz sentido bloquear uma conta que já foi encerrada.
         if (this.status == StatusConta.ENCERRADA) {
             throw new IllegalStateException("Não é possível bloquear uma conta encerrada.");
         }
@@ -87,8 +110,6 @@ public class Conta extends BaseEntity {
         this.status = StatusConta.ENCERRADA;
     }
 
-    // Privado porque ninguém de fora deve chamar diretamente — tem que passar pelo
-    // realizarDeposito.
     private void depositar(Dinheiro valor) {
         if (valor == null || valor.menorOuIgualQue(new Dinheiro("0"))) {
             throw new IllegalArgumentException("Valor de depósito deve ser maior que zero.");
@@ -97,7 +118,6 @@ public class Conta extends BaseEntity {
         registrarMovimentacao(valor, TipoMovimentacao.DEPOSITO);
     }
 
-    // Privado pelo mesmo motivo do depositar.
     private void sacar(Dinheiro valor) {
         if (valor == null || valor.menorOuIgualQue(new Dinheiro("0"))) {
             throw new IllegalArgumentException("Valor de saque deve ser maior que zero.");

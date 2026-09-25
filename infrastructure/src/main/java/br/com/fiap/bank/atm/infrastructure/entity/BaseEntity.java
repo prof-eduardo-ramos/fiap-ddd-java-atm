@@ -20,9 +20,9 @@ public abstract class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+    protected UUID id;
 
     @Column(nullable = false)
-    private LocalDate dataCriacao;
+    protected LocalDate dataCriacao;
 
 }

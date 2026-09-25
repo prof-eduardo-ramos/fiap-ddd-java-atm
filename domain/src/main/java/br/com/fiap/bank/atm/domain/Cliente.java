@@ -1,24 +1,25 @@
 package br.com.fiap.bank.atm.domain;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-// @AllArgsConstructor
 public class Cliente extends BaseEntity {
 
     private String nomeCompleto;
     private String cpf;
 
     public Cliente(String nomeCompleto, String cpf) {
-        this(UUID.randomUUID(), nomeCompleto, cpf);
+        this(null, LocalDate.now(), nomeCompleto, cpf);
     }
 
     @Builder
-    private Cliente(UUID id, String nomeCompleto, String cpf) {
-        super(id);
+    private Cliente(UUID id, LocalDate dataCriacao, String nomeCompleto, String cpf) {
+        super(id, dataCriacao);
         this.nomeCompleto = nomeCompleto;
         this.cpf = cpf;
     }
