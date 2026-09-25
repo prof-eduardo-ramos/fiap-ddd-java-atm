@@ -10,6 +10,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_movimentacoes")
 public class MovimentacaoEntity extends BaseEntity {
@@ -33,17 +35,5 @@ public class MovimentacaoEntity extends BaseEntity {
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal valor;
-
-    public MovimentacaoEntity(ContaEntity conta, LocalDateTime dataHora, BigDecimal valor, TipoMovimentacaoEnum tipo) {
-        super();
-        this.conta = conta;
-        this.dataHora = dataHora;
-        this.valor = valor;
-        this.tipo = tipo;
-    }
-
-    public MovimentacaoEntity(LocalDateTime dataHora, BigDecimal valor, TipoMovimentacaoEnum tipo) {
-        this(null, dataHora, valor, tipo);
-    }
 
 }

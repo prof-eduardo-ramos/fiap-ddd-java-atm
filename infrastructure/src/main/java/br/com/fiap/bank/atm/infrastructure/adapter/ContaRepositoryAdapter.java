@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.interfaces.ContaRepository;
+import br.com.fiap.bank.atm.infrastructure.entity.ContaEntity;
 import br.com.fiap.bank.atm.infrastructure.mapper.ContaMapper;
 import br.com.fiap.bank.atm.infrastructure.repository.jpa.ContaJpaRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +23,9 @@ public class ContaRepositoryAdapter implements ContaRepository {
     private final ContaMapper mapper;
 
     @Override
-    public void adicionar(Conta entidade) {
-        repository.save(mapper.toEntity(entidade));
+    public UUID adicionar(Conta entidade) {
+        ContaEntity entity = repository.save(mapper.toEntity(entidade));
+        return entity.getId();
     }
 
     @Override

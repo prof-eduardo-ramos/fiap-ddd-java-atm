@@ -67,10 +67,10 @@ public class ContaService {
                 Conta novaConta = ContaFactory.getInstance().criarContaCorrente(dto.numero(), dto.agencia(), cliente,
                                 contaAcesso, new Dinheiro(dto.saldoInicial()));
 
-                contaRepository.adicionar(novaConta);
+                UUID contaId = contaRepository.adicionar(novaConta);
 
                 return new ContaResponseDTO(
-                                novaConta.getId(),
+                                contaId,
                                 novaConta.getCliente().getNomeCompleto(),
                                 novaConta.getCliente().getCpf(),
                                 novaConta.getNumero(),

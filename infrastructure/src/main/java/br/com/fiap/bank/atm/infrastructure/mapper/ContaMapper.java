@@ -8,8 +8,6 @@ import org.mapstruct.Mapping;
 import br.com.fiap.bank.atm.domain.Cliente;
 import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.ContaAcesso;
-import br.com.fiap.bank.atm.domain.ContaCorrente;
-import br.com.fiap.bank.atm.domain.ContaPoupanca;
 import br.com.fiap.bank.atm.domain.Dinheiro;
 import br.com.fiap.bank.atm.domain.Movimentacao;
 import br.com.fiap.bank.atm.infrastructure.entity.ClienteEntity;

@@ -10,11 +10,14 @@ import lombok.Getter;
 @EqualsAndHashCode(of = "id")
 public abstract class BaseEntity {
 
-    private UUID id;
+    private final UUID id;
     private LocalDate dataCriacao;
 
-    public BaseEntity() {
-        this.id = UUID.randomUUID();
+    public BaseEntity(UUID id) {
+        if (id == null) {
+            throw new IllegalArgumentException("ID não pode ser nulo.");
+        }
+        this.id = id;
         this.dataCriacao = LocalDate.now();
     }
 

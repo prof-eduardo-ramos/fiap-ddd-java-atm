@@ -4,7 +4,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,7 +29,13 @@ public class Conta extends BaseEntity {
 
     public Conta(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo, Double taxa,
             TipoConta tipo) {
-        super();
+        this(UUID.randomUUID(), numero, agencia, cliente, contaAcesso, saldo, taxa, tipo);
+    }
+
+    @Builder
+    private Conta(UUID id, String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo,
+            Double taxa, TipoConta tipo) {
+        super(id);
         if (cliente == null) {
             throw new IllegalArgumentException("Cliente não pode ser nulo.");
         }
