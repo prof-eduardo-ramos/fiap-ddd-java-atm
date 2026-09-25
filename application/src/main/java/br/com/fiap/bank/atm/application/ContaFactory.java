@@ -34,6 +34,6 @@ public class ContaFactory {
 
     public Conta criarContaPoupanca(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso,
             Dinheiro saldo) {
-        return new Conta(numero, agencia, cliente, contaAcesso, saldo, 0.0, TipoConta.CONTA_PÒUPANCA);
+        return new Conta(numero, agencia, cliente, contaAcesso, saldo, 0.0, TipoConta.CONTA_POUPANCA);
     }
 }
