@@ -1,16 +1,16 @@
 package br.com.fiap.bank.atm.infrastructure.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,11 +18,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-// @NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor
+// @AllArgsConstructor
 @Entity
 @Table(name = "tb_movimentacoes")
-@Builder
 public class MovimentacaoEntity extends BaseEntity {
 
     @Column(nullable = false)
@@ -37,5 +36,15 @@ public class MovimentacaoEntity extends BaseEntity {
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal valor;
+
+    @Builder
+    private MovimentacaoEntity(UUID id, LocalDate dataCriacao, LocalDateTime dataHora, TipoMovimentacaoEnum tipo,
+            BigDecimal valor, ContaEntity conta) {
+        super(id, dataCriacao);
+        this.dataHora = dataHora;
+        this.tipo = tipo;
+        this.valor = valor;
+        this.conta = conta;
+    }
 
 }

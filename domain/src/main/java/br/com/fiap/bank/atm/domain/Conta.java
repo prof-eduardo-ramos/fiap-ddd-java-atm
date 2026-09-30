@@ -25,7 +25,7 @@ public class Conta extends BaseEntity {
     protected Dinheiro saldo;
     protected Cliente cliente;
     protected ContaAcesso contaAcesso;
-    protected List<Movimentacao> movimentacoes;
+    protected final List<Movimentacao> movimentacoes = new ArrayList<>();
 
     @Builder
     private Conta(
@@ -39,8 +39,7 @@ public class Conta extends BaseEntity {
             Double taxa,
             StatusConta status,
             TipoConta tipo,
-            LocalDate dataAbertura,
-            List<Movimentacao> movimentacoes) {
+            LocalDate dataAbertura) {
 
         super(id, dataCriacao);
 
@@ -63,7 +62,6 @@ public class Conta extends BaseEntity {
         this.tipo = tipo;
         this.status = status;
         this.dataAbertura = dataAbertura;
-        this.movimentacoes = movimentacoes;
     }
 
     public Conta(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso, Dinheiro saldo, Double taxa,
@@ -79,8 +77,7 @@ public class Conta extends BaseEntity {
                 taxa,
                 StatusConta.ATIVA,
                 tipo,
-                LocalDate.now(),
-                new ArrayList<>());
+                LocalDate.now());
     }
 
     public void realizarSaque(Dinheiro valor) {
@@ -88,8 +85,7 @@ public class Conta extends BaseEntity {
             throw new IllegalStateException("Operação não permitida. A conta está " + this.status + ".");
         }
         sacar(valor);
-        // Chama o método abstrato — cada subclasse decide o que acontece aqui.
-        // aplicarRegraDeTaxa();
+        this.saldo = this.getTipo().aplicarRegraDeTaxa(this.saldo);
     }
 
     public void realizarDeposito(Dinheiro valor) {
@@ -136,7 +132,7 @@ public class Conta extends BaseEntity {
     // Protected para que as subclasses também possam registrar movimentações,
     // como ContaPoupanca que registra o rendimento mensal.
     protected void registrarMovimentacao(Dinheiro valor, TipoMovimentacao tipo) {
-        movimentacoes.add(new Movimentacao(this, LocalDateTime.now(), valor, tipo));
+        movimentacoes.add(new Movimentacao(LocalDateTime.now(), valor, tipo));
     }
 
 }
