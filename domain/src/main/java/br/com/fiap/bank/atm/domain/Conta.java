@@ -85,7 +85,7 @@ public class Conta extends BaseEntity {
             throw new IllegalStateException("Operação não permitida. A conta está " + this.status + ".");
         }
         sacar(valor);
-        this.saldo = this.getTipo().aplicarRegraDeTaxa(this.saldo);
+        registrarMovimentacao(this.getTipo().aplicarRegraDeTaxa(valor), this.getTipo().getTipoMovimentacao());
     }
 
     public void realizarDeposito(Dinheiro valor) {

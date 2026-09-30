@@ -2,20 +2,23 @@ package br.com.fiap.bank.atm.domain;
 
 import java.util.function.Function;
 
-public enum TipoConta {
-    CONTA_CORRENTE(0.10, valor -> valor.multiplicar(new Dinheiro("0.10"))),
-    CONTA_POUPANCA(0.05, valor -> valor.multiplicar(new Dinheiro("0.05")));
+import lombok.Getter;
 
+public enum TipoConta {
+    CONTA_CORRENTE(0.10, TipoMovimentacao.SAQUE),
+    CONTA_POUPANCA(0.05, TipoMovimentacao.DEPOSITO);
+
+    @Getter
     private final Double taxa;
+
+    @Getter
+    private final TipoMovimentacao tipoMovimentacao;
     private final Function<Dinheiro, Dinheiro> regraDeTaxa;
 
-    TipoConta(Double taxa, Function<Dinheiro, Dinheiro> regraDeTaxa) {
+    TipoConta(Double taxa, TipoMovimentacao tipoMovimentacao) {
         this.taxa = taxa;
-        this.regraDeTaxa = regraDeTaxa;
-    }
-
-    public Double getTaxa() {
-        return taxa;
+        this.tipoMovimentacao = tipoMovimentacao;
+        this.regraDeTaxa = valor -> valor.multiplicar(new Dinheiro(taxa.toString()));
     }
 
     public Dinheiro aplicarRegraDeTaxa(Dinheiro valor) {
