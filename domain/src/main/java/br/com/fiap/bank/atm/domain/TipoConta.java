@@ -5,8 +5,8 @@ import java.util.function.Function;
 import lombok.Getter;
 
 public enum TipoConta {
-    CONTA_CORRENTE(0.10, TipoMovimentacao.SAQUE),
-    CONTA_POUPANCA(0.05, TipoMovimentacao.DEPOSITO);
+    CONTA_CORRENTE(0.10, TipoMovimentacao.TAXA),
+    CONTA_POUPANCA(0.05, TipoMovimentacao.RENDIMENTO);
 
     @Getter
     private final Double taxa;
