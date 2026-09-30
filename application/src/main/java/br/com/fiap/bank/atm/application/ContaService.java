@@ -57,6 +57,7 @@ public class ContaService {
                                                 movimentacao.getTipo().name(),
                                                 movimentacao.getValor().valor(),
                                                 movimentacao.getDataHora()))
+                                .sorted((m1, m2) -> m2.dataHora().compareTo(m1.dataHora()))
                                 .collect(Collectors.toList());
 
         }
