@@ -4,5 +4,9 @@ package br.com.fiap.bank.atm.domain;
 // TAXA é usado pela ContaCorrente (desconto por saque) e
 // RENDIMENTO é usado pela ContaPoupanca (juros mensais).
 public enum TipoMovimentacao {
-    DEPOSITO, SAQUE, TAXA, RENDIMENTO
+    DEPOSITO, SAQUE, TAXA, RENDIMENTO;
+
+    public static TipoMovimentacao from(String name) {
+        return TipoMovimentacao.valueOf(name);
+    }
 }

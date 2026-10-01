@@ -1,7 +1,9 @@
 package br.com.fiap.bank.atm.infrastructure.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +11,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,9 +19,11 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+// @AllArgsConstructor
 @Entity
 @Table(name = "tb_movimentacoes")
 public class MovimentacaoEntity extends BaseEntity {
+
     @Column(nullable = false)
     private LocalDateTime dataHora;
 
@@ -32,15 +37,14 @@ public class MovimentacaoEntity extends BaseEntity {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal valor;
 
-    public MovimentacaoEntity(ContaEntity conta, LocalDateTime dataHora, BigDecimal valor, TipoMovimentacaoEnum tipo) {
-        super();
-        this.conta = conta;
+    @Builder
+    private MovimentacaoEntity(UUID id, LocalDate dataCriacao, LocalDateTime dataHora, TipoMovimentacaoEnum tipo,
+            BigDecimal valor, ContaEntity conta) {
+        super(id, dataCriacao);
         this.dataHora = dataHora;
-        this.valor = valor;
         this.tipo = tipo;
+        this.valor = valor;
+        this.conta = conta;
     }
 
-    public MovimentacaoEntity(LocalDateTime dataHora, BigDecimal valor, TipoMovimentacaoEnum tipo) {
-        this(null, dataHora, valor, tipo);
-    }
 }

@@ -2,22 +2,25 @@ package br.com.fiap.bank.atm.infrastructure.entity;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @Entity
@@ -33,9 +36,11 @@ public class ContaEntity extends BaseEntity {
     @Column(nullable = false)
     protected Double taxa;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     protected StatusContaEnum status;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     protected TipoContaEnum tipo;
 
@@ -56,8 +61,22 @@ public class ContaEntity extends BaseEntity {
     @OneToMany(mappedBy = "conta", cascade = CascadeType.ALL)
     protected List<MovimentacaoEntity> movimentacoes;
 
-    public void adicionarMovimentacao(MovimentacaoEntity movimentacao) {
-        this.movimentacoes.add(movimentacao);
-        movimentacao.setConta(this);
+    @Builder
+    private ContaEntity(UUID id, LocalDate dataCriacao, String numero, String agencia, Double taxa,
+            StatusContaEnum status,
+            TipoContaEnum tipo, LocalDate dataAbertura, BigDecimal saldo, ClienteEntity cliente,
+            ContaAcessoEntity contaAcesso, List<MovimentacaoEntity> movimentacoes) {
+        super(id, dataCriacao);
+        this.numero = numero;
+        this.agencia = agencia;
+        this.taxa = taxa;
+        this.status = status;
+        this.tipo = tipo;
+        this.dataAbertura = dataAbertura;
+        this.saldo = saldo;
+        this.cliente = cliente;
+        this.contaAcesso = contaAcesso;
+        this.movimentacoes = (movimentacoes == null) ? new ArrayList<>() : movimentacoes;
     }
+
 }
