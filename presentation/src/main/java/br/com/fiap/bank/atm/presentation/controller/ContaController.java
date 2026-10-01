@@ -17,6 +17,7 @@ import br.com.fiap.bank.atm.application.dto.ContaRequestDTO;
 import br.com.fiap.bank.atm.application.dto.ContaResponseDTO;
 import br.com.fiap.bank.atm.application.dto.MovimentacaoResponseDTO;
 import br.com.fiap.bank.atm.application.dto.TransacaoRequestDTO;
+import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,7 +33,7 @@ public class ContaController {
     }
 
     @PostMapping
-    public ResponseEntity<ContaResponseDTO> criarConta(@RequestBody ContaRequestDTO request) {
+    public ResponseEntity<ContaResponseDTO> criarConta(@RequestBody @Valid ContaRequestDTO request) {
         ContaResponseDTO novaConta = contaService.cadastrarNovaConta(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaConta);
     }
@@ -62,13 +63,14 @@ public class ContaController {
     }
 
     @PutMapping("/{id}/deposito")
-    public ResponseEntity<Void> realizarDeposito(@PathVariable UUID id, @RequestBody TransacaoRequestDTO request) {
+    public ResponseEntity<Void> realizarDeposito(@PathVariable UUID id,
+            @RequestBody @Valid TransacaoRequestDTO request) {
         contaService.realizarDeposito(id, request.valor());
         return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}/saque")
-    public ResponseEntity<Void> realizarSaque(@PathVariable UUID id, @RequestBody TransacaoRequestDTO request) {
+    public ResponseEntity<Void> realizarSaque(@PathVariable UUID id, @RequestBody @Valid TransacaoRequestDTO request) {
         contaService.realizarSaque(id, request.valor());
         return ResponseEntity.noContent().build();
     }
