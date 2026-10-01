@@ -30,7 +30,7 @@ public class ContaRepositoryAdapter implements ContaRepository {
 
     @Override
     public Conta atualizar(Conta entidade) {
-        return mapper.toDomain(repository.save(mapper.toEntity(entidade));
+        return mapper.toDomain(repository.save(mapper.toEntity(entidade)));
     }
 
     @Override
