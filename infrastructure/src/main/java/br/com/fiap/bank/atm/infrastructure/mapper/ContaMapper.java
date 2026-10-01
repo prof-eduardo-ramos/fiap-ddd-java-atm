@@ -1,10 +1,6 @@
 package br.com.fiap.bank.atm.infrastructure.mapper;
 
 import java.math.BigDecimal;
-
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-
 import br.com.fiap.bank.atm.domain.Cliente;
 import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.ContaAcesso;
@@ -15,10 +11,8 @@ import br.com.fiap.bank.atm.infrastructure.entity.ContaAcessoEntity;
 import br.com.fiap.bank.atm.infrastructure.entity.ContaEntity;
 import br.com.fiap.bank.atm.infrastructure.entity.MovimentacaoEntity;
 
-@Mapper(componentModel = "spring")
 public interface ContaMapper {
 
-    @Mapping(target = "saldo", source = "saldo.valor")
     ContaEntity toEntity(Conta conta);
 
     Conta toDomain(ContaEntity contaEntity);
@@ -46,7 +40,7 @@ public interface ContaMapper {
         if (dinheiro == null) {
             return BigDecimal.ZERO;
         }
-        return dinheiro.getValor();
+        return dinheiro.valor();
     }
 
 }

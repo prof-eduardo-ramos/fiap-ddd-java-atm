@@ -4,29 +4,33 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.interfaces.ContaRepository;
+import br.com.fiap.bank.atm.infrastructure.entity.ContaEntity;
 import br.com.fiap.bank.atm.infrastructure.mapper.ContaMapper;
 import br.com.fiap.bank.atm.infrastructure.repository.jpa.ContaJpaRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @Component
+@Primary
 public class ContaRepositoryAdapter implements ContaRepository {
 
     private final ContaJpaRepository repository;
     private final ContaMapper mapper;
 
     @Override
-    public Conta adicionar(Conta entidade) {
-        return mapper.toDomain(repository.saveAndFlush(mapper.toEntity(entidade)));
+    public UUID adicionar(Conta entidade) {
+        ContaEntity entity = repository.save(mapper.toEntity(entidade));
+        return entity.getId();
     }
 
     @Override
-    public Conta atualizar(Conta entidade) {
-        return mapper.toDomain(repository.save(mapper.toEntity(entidade)));
+    public void atualizar(Conta entidade) {
+        repository.save(mapper.toEntity(entidade));
     }
 
     @Override

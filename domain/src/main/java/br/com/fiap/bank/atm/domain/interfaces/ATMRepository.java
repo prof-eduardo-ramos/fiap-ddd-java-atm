@@ -8,7 +8,7 @@ import br.com.fiap.bank.atm.domain.BaseEntity;
 
 public interface ATMRepository<T extends BaseEntity> {
 
-    T adicionar(T entidade);
+    UUID adicionar(T entidade);
 
     T atualizar(T entidade);
 

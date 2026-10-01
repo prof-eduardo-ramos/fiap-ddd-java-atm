@@ -4,5 +4,9 @@ package br.com.fiap.bank.atm.domain;
 // Usei enum em vez de String para evitar erros de digitação e deixar mais seguro.
 // Assim o compilador avisa se eu tentar usar um status que não existe.
 public enum StatusConta {
-    ATIVA, BLOQUEADA, ENCERRADA
+    ATIVA, BLOQUEADA, ENCERRADA;
+
+    public static StatusConta from(String status) {
+        return StatusConta.valueOf(status);
+    }
 }

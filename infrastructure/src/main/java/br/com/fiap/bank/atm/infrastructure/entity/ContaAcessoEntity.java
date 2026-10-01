@@ -1,8 +1,12 @@
 package br.com.fiap.bank.atm.infrastructure.entity;
 
+import java.time.LocalDate;
+import java.util.UUID;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +17,8 @@ import lombok.Setter;
 @Entity
 @Table(name = "tb_contas_acesso")
 public class ContaAcessoEntity extends BaseEntity {
+
+    // Deixei como constante para ficar fácil de mudar no futuro se precisar.
     public static final Integer MAXIMO_TENTATIVAS = 3;
 
     @Column(nullable = false)
@@ -24,10 +30,12 @@ public class ContaAcessoEntity extends BaseEntity {
     @Column(nullable = false)
     private Boolean bloqueado;
 
-    public ContaAcessoEntity(String senha) {
-        super();
+    @Builder
+    private ContaAcessoEntity(UUID id, LocalDate dataCriacao, String senha, Integer tentativas, Boolean bloqueado) {
+        super(id, dataCriacao);
         this.senha = senha;
-        this.tentativas = 0;
-        this.bloqueado = Boolean.FALSE;
+        this.tentativas = tentativas;
+        this.bloqueado = bloqueado;
     }
+
 }
