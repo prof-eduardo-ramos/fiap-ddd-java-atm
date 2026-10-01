@@ -3,9 +3,8 @@ package br.com.fiap.bank.atm.application;
 import br.com.fiap.bank.atm.domain.Cliente;
 import br.com.fiap.bank.atm.domain.Conta;
 import br.com.fiap.bank.atm.domain.ContaAcesso;
-import br.com.fiap.bank.atm.domain.ContaCorrente;
-import br.com.fiap.bank.atm.domain.ContaPoupanca;
 import br.com.fiap.bank.atm.domain.Dinheiro;
+import br.com.fiap.bank.atm.domain.TipoConta;
 
 // Factory responsável por criar os diferentes tipos de conta.
 // Usei o padrão Factory para que o resto do sistema não precise saber qual classe concreta
@@ -30,11 +29,11 @@ public class ContaFactory {
     // não precise depender do tipo específico — só usa a interface de Conta.
     public Conta criarContaCorrente(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso,
             Dinheiro saldo) {
-        return new ContaCorrente(numero, agencia, cliente, contaAcesso, saldo);
+        return new Conta(numero, agencia, cliente, contaAcesso, saldo, 0.0, TipoConta.CONTA_CORRENTE);
     }
 
     public Conta criarContaPoupanca(String numero, String agencia, Cliente cliente, ContaAcesso contaAcesso,
             Dinheiro saldo) {
-        return new ContaPoupanca(numero, agencia, cliente, contaAcesso, saldo);
+        return new Conta(numero, agencia, cliente, contaAcesso, saldo, 0.0, TipoConta.CONTA_POUPANCA);
     }
 }

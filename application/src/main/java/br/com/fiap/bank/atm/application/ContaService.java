@@ -33,7 +33,7 @@ public class ContaService {
                                 conta.getCliente().getCpf(),
                                 conta.getNumero(),
                                 conta.getAgencia(),
-                                conta.getSaldo().getValor());
+                                conta.getSaldo().valor());
         }
 
         public List<ContaResponseDTO> buscarTodas() {
@@ -45,7 +45,7 @@ public class ContaService {
                                                 conta.getCliente().getCpf(),
                                                 conta.getNumero(),
                                                 conta.getAgencia(),
-                                                conta.getSaldo().getValor()))
+                                                conta.getSaldo().valor()))
                                 .collect(Collectors.toList());
         }
 
@@ -55,8 +55,9 @@ public class ContaService {
                 return movimentacoes.stream()
                                 .map(movimentacao -> new MovimentacaoResponseDTO(
                                                 movimentacao.getTipo().name(),
-                                                movimentacao.getValor().getValor(),
+                                                movimentacao.getValor().valor(),
                                                 movimentacao.getDataHora()))
+                                .sorted((m1, m2) -> m2.dataHora().compareTo(m1.dataHora()))
                                 .collect(Collectors.toList());
 
         }
@@ -67,15 +68,15 @@ public class ContaService {
                 Conta novaConta = ContaFactory.getInstance().criarContaCorrente(dto.numero(), dto.agencia(), cliente,
                                 contaAcesso, new Dinheiro(dto.saldoInicial()));
 
-                contaRepository.adicionar(novaConta);
+                UUID contaId = contaRepository.adicionar(novaConta);
 
                 return new ContaResponseDTO(
-                                novaConta.getId(),
+                                contaId,
                                 novaConta.getCliente().getNomeCompleto(),
                                 novaConta.getCliente().getCpf(),
                                 novaConta.getNumero(),
                                 novaConta.getAgencia(),
-                                novaConta.getSaldo().getValor());
+                                novaConta.getSaldo().valor());
         }
 
         public void realizarSaque(UUID id, BigDecimal valor) {
