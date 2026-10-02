@@ -6,8 +6,6 @@ import java.math.RoundingMode;
 public record Dinheiro(BigDecimal valor) {
 
     public Dinheiro(BigDecimal valor) {
-        // setScale(2) garante que o valor sempre tenha duas casas decimais.
-        // HALF_UP é o arredondamento padrão (ex: 2.225 vira 2.23).
         this.valor = valor.setScale(2, RoundingMode.HALF_UP);
     }
 
