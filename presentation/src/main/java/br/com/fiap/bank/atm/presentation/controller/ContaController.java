@@ -33,7 +33,7 @@ public class ContaController {
     }
 
     @PostMapping
-    public ResponseEntity<ContaResponseDTO> criarConta(@RequestBody ContaRequestDTO request) {
+    public ResponseEntity<ContaResponseDTO> criarConta(@RequestBody @Valid ContaRequestDTO request) {
         ContaResponseDTO novaConta = contaService.cadastrarNovaConta(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(novaConta);
     }
@@ -70,7 +70,7 @@ public class ContaController {
     }
 
     @PutMapping("/{id}/saque")
-    public ResponseEntity<Void> realizarSaque(@PathVariable UUID id, @RequestBody TransacaoRequestDTO request) {
+    public ResponseEntity<Void> realizarSaque(@PathVariable UUID id, @RequestBody @Valid TransacaoRequestDTO request) {
         contaService.realizarSaque(id, request.valor());
         return ResponseEntity.noContent().build();
     }
