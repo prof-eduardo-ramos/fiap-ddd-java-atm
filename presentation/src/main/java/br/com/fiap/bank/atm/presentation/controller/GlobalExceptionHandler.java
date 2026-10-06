@@ -14,34 +14,34 @@ import br.com.fiap.bank.atm.presentation.dto.ApiErrorResponseDTO;
 import br.com.fiap.bank.atm.presentation.dto.CampoErroDTO;
 import jakarta.servlet.http.HttpServletRequest;
 
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "br.com.fiap.bank.atm.presentation.controller.rest")
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiErrorResponseDTO> trataErrosDeValidacao(MethodArgumentNotValidException ex,
-            HttpServletRequest request) {
-        List<CampoErroDTO> erros = ex.getBindingResult()
-                .getFieldErrors()
-                .stream()
-                .map(this::toCampoErroDTO)
-                .toList();
+        @ExceptionHandler(MethodArgumentNotValidException.class)
+        public ResponseEntity<ApiErrorResponseDTO> trataErrosDeValidacao(MethodArgumentNotValidException ex,
+                        HttpServletRequest request) {
+                List<CampoErroDTO> erros = ex.getBindingResult()
+                                .getFieldErrors()
+                                .stream()
+                                .map(this::toCampoErroDTO)
+                                .toList();
 
-        ApiErrorResponseDTO erroBody = new ApiErrorResponseDTO(
-                LocalDateTime.now(),
-                HttpStatus.BAD_REQUEST.value(),
-                "Violação de Validação de Borda",
-                "Um ou mais campos enviados no payload possuem formato ou valor inválido.",
-                request.getRequestURI(),
-                erros);
+                ApiErrorResponseDTO erroBody = new ApiErrorResponseDTO(
+                                LocalDateTime.now(),
+                                HttpStatus.BAD_REQUEST.value(),
+                                "Violação de Validação de Borda",
+                                "Um ou mais campos enviados no payload possuem formato ou valor inválido.",
+                                request.getRequestURI(),
+                                erros);
 
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroBody);
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(erroBody);
 
-    }
+        }
 
-    private CampoErroDTO toCampoErroDTO(FieldError fieldError) {
-        return new CampoErroDTO(
-                fieldError.getField(),
-                fieldError.getDefaultMessage());
-    }
+        private CampoErroDTO toCampoErroDTO(FieldError fieldError) {
+                return new CampoErroDTO(
+                                fieldError.getField(),
+                                fieldError.getDefaultMessage());
+        }
 
 }

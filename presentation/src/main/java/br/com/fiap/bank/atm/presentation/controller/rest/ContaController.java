@@ -1,4 +1,4 @@
-package br.com.fiap.bank.atm.presentation.controller;
+package br.com.fiap.bank.atm.presentation.controller.rest;
 
 import java.util.List;
 import java.util.UUID;
