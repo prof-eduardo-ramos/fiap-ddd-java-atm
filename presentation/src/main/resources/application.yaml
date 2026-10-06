@@ -15,10 +15,3 @@ spring:
         console:
             enabled: true
             path: /h2-console
-
-    thymeleaf:
-        prefix: classpath:templates/
-        suffix: .html
-        mode: HTML
-        encoding: UTF-8
-        cache: false # Desabilita cache em dev para ver alterações HTML em tempo real
