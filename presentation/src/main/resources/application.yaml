@@ -26,3 +26,18 @@ logging:
     level:
         org.springframework.security: DEBUG
         br.com.fiap.bank.atm: DEBUG
+
+# ===================================================================
+# CONFIGURAÇÕES DE SEGURANÇA OAUTH 2.0 E JWT (AULA 24)
+# ===================================================================
+fiap:
+    security:
+        # Segredo criptográfico de no mínimo 256 bits (32 bytes) para algoritmo HMAC-SHA256
+        jwt:
+            secret-key: "fiap-bank-atm-super-secret-key-for-jwt-signing-authorization-token-2026"
+            expiration-seconds: 3600 # 1 hora de validade
+        # Credenciais OAuth2 do Cliente Corporativo (Client Credentials)
+        oauth2:
+            client:
+                client-id: "fiap-atm-admin-client"
+                client-secret: "atm-secret-xyz-987"
