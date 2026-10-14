@@ -51,4 +51,8 @@ public class ContaRepositoryAdapter implements ContaRepository {
         return repository.findAll().stream().map(mapper::toDomain).toList();
     }
 
+    @Override
+    public Optional<Conta> buscarPorNumero(String numero) {
+        return repository.findByNumero(numero).map(mapper::toDomain);
+    }
 }
