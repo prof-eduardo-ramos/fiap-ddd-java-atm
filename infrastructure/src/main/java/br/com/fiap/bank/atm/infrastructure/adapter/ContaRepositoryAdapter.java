@@ -12,15 +12,18 @@ import br.com.fiap.bank.atm.domain.interfaces.ContaRepository;
 import br.com.fiap.bank.atm.infrastructure.entity.ContaEntity;
 import br.com.fiap.bank.atm.infrastructure.mapper.ContaMapper;
 import br.com.fiap.bank.atm.infrastructure.repository.jpa.ContaJpaRepository;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
 @Component
 @Primary
 public class ContaRepositoryAdapter implements ContaRepository {
 
     private final ContaJpaRepository repository;
     private final ContaMapper mapper;
+
+    public ContaRepositoryAdapter(ContaJpaRepository repository, ContaMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     @Override
     public UUID adicionar(Conta entidade) {

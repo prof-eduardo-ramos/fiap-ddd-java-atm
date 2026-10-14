@@ -9,8 +9,6 @@ import br.com.fiap.bank.atm.domain.ContaAcesso;
 import br.com.fiap.bank.atm.domain.Dinheiro;
 import br.com.fiap.bank.atm.domain.Movimentacao;
 import br.com.fiap.bank.atm.domain.interfaces.ContaRepository;
-import lombok.RequiredArgsConstructor;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
@@ -19,10 +17,13 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class ContaService {
 
         private final ContaRepository contaRepository;
+
+        public ContaService(ContaRepository contaRepository) {
+                this.contaRepository = contaRepository;
+        }
 
         public ContaResponseDTO consultarConta(UUID id) {
                 Conta conta = contaRepository.buscarPorId(id)
