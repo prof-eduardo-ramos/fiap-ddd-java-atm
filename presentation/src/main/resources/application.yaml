@@ -22,3 +22,7 @@ spring:
         mode: HTML
         encoding: UTF-8
         cache: false # Desabilita cache em dev para ver alterações HTML em tempo real
+logging:
+    level:
+        org.springframework.security: DEBUG
+        br.com.fiap.bank.atm: DEBUG
